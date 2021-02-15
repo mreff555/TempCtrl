@@ -3,6 +3,24 @@
 
 #include <string>
 #include <ctime>
+
+#define GPIO_MAX    53
+#define BLOCK_SIZE  (4*1024)
+
+// Word offsets of GPIO registers
+#define GPLEV0      13
+#define GPLEV1      14
+
+// This is the timeout for the event loop.  Be conservative until we know
+// what this thing can handle
+// TODO: should probably rename this.  It was fine as it was when these macros
+// were located in the buttonManager.  Now it is poorly named
+#define SCAN_RATE   5  // milliseconds
+
+// This is the minimum time a button must be held to handle the interaction
+// as a held button.
+#define MIN_BUTTON_HOLD_TIME    500  // milliseconds
+
 enum ButtonState
 {
   DEFAULT_STATE,

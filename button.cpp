@@ -15,7 +15,7 @@ Button::~Button()
 
 void Button::update(ButtonState newValue)
 {
-  gpioId = newValue;
+  buttonState = newValue;
   timeStamp = time(NULL);
 }
 

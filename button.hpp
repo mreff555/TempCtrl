@@ -5,8 +5,6 @@
 #include <ctime>
 #include <cstdint>
 
-#define HOLDTIME    500  // milliseconds
-
 class Button
 {
   public:

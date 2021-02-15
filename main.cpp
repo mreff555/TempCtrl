@@ -4,10 +4,9 @@
 #include <signal.h>
 #include <memory>
 
-// For now, I'm keeping this global. The loop below is not the only loop that
-// needs a term signal.  I'll figure out a better way of handling this eventually.
+/* Terminate processing flag */
 bool terminate = false;
-
+  
 void sigHandler(int signum)
 {
   terminate = true; 
@@ -15,18 +14,26 @@ void sigHandler(int signum)
 
 int main()
 {
-  TempCtrl tc;
+  /* Signal traps for various inturrupts */
+  signal(SIGINT, sigHandler); /* Ctrl + C */
 
   ButtonManager *buttonManager = new ButtonManager;
   ButtonSubscriber *subscriber = new ButtonSubscriber(*buttonManager);
   
-  signal(SIGINT, sigHandler); 
-
+  /* Add GPIO 26 to the list of GPIO's for the button manager to query */
+  buttonManager->addButton(Button(26));
+  
+  /* Subscribe to GPIO 26 notifications */
+  subscriber->subscribe(26); 
+   
+  TempCtrl tc;
   tc.getTemp(0);
   // TODO: this should be void parameters.  Make a setter for
   // the scale and make this value private
   tc.printTemp(tc.tempScaleVal);
 
+  /* Start event loops */
+  buttonManager->startEventLoop(terminate);
   while(!terminate)
   {
     // TODO Why do I have this here.  This should be in a loop on
