@@ -1,5 +1,12 @@
 #include "bitfield.hpp"
 
+Bitfield::Bitfield() : data(0) {}
+
+Bitfield::Bitfield(uint64_t num)
+{
+  set(num);
+}
+
 void Bitfield::set(const uint64_t num)
 {
   if(num < (8 * sizeof(data)) && num > 0)
@@ -28,6 +35,11 @@ void Bitfield::clear()
 void Bitfield::operator |= (const Bitfield &rhs)
 {
   this->data |= rhs.data;
+}
+
+int Bitfield::operator == (const Bitfield &rhs) const
+{
+  return (this->data == rhs.data);
 }
 
 uint8_t Bitfield::getBitfieldSize() const

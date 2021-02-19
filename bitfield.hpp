@@ -6,7 +6,9 @@
 class Bitfield
 {
   public:
-    Bitfield() : data(0) {}
+    Bitfield();
+    
+    Bitfield(uint64_t num);
 
     virtual ~Bitfield(){}
     
@@ -20,6 +22,8 @@ class Bitfield
     
     void operator |= (const Bitfield &rhs);
 
+    int operator == (const Bitfield &rhs) const;
+    
     uint8_t getBitfieldSize() const;
 
   private:

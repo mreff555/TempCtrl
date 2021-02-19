@@ -21,10 +21,15 @@ int main()
   ButtonSubscriber *subscriber = new ButtonSubscriber(*buttonManager);
   
   /* Add GPIO 26 to the list of GPIO's for the button manager to query */
-  buttonManager->addButton(Button(26));
+  /* Since this call creates the button objects.  It must be called    */
+  /* before subscribers can subscribe to the button. */
+  // buttonManager->addButton(Button(26));
   
-  /* Subscribe to GPIO 26 notifications */
-  subscriber->subscribe(26); 
+  /* Subscribe to GPIO 26 notifications                                */
+  /* The whole buttonSubscriber class is temporary until it works and  */
+  /* can be simplified as much as possible.  Each functional element   */
+  /* will independantly subscribe to buttons that it needs.            */
+  // subscriber->subscribe(26); 
    
   TempCtrl tc;
   tc.getTemp(0);
@@ -44,7 +49,6 @@ int main()
     tc.printTemp(tc.tempScaleVal);
   } 
   
-  //subscriber->unsubscribe();
   delete subscriber;
   delete buttonManager;
 }

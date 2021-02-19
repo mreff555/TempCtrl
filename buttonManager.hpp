@@ -3,9 +3,9 @@
 
 #include "button.hpp"
 #include "buttonPublisher_I.hpp"
+#include "bitfield.hpp"
 #include <cstdint>
 #include <ctime>
-#include <list>
 
 class ButtonSubscriber_I;
 
@@ -40,8 +40,7 @@ class ButtonManager : public ButtonPublisher_I
   Button *buttonArr;
   size_t buttonCount;
   
-  // Subscriber list
-  std::list<ButtonSubscriber_I *> subscriberList;
+  SubscriberList subscriberList;
 };
 
 #endif /* BUTTON_MANAGER_HPP */

@@ -2,15 +2,17 @@
 #define BUTTONSUBSCRIBER_HPP
 
 #include "buttonSubscriber_I.hpp"
+#include "button.hpp"
+#include <vector>
 
 class ButtonManager;
 
 class ButtonSubscriber : public ButtonSubscriber_I
 {
   public:
-  ButtonSubscriber(ButtonManager &publisher);
+  ButtonSubscriber(ButtonManager &_buttonManager);
 
-  virtual ~ButtonSubscriber(){}
+  virtual ~ButtonSubscriber();
 
   void update(const Button &buttonUpdate) override;
 
@@ -20,11 +22,18 @@ class ButtonSubscriber : public ButtonSubscriber_I
 
   private:
   
-  // Need to handle multiple.  Get it to compile then fix.
-  //Button button;
-  ButtonManager &buttonPublisher;
-  static int static_number_;
-  int number_;
+  ButtonManager &buttonManager;
+ 
+  // This vector does nothing yet.  I think I am going to have to iterate
+  // through a list of buttons, but need need the cleanest way of doing so 
+  std::vector<Button> localButtonList;
+  Button menuButton;
+  // Button backButton;
+  // Button upButton;
+  // Button downButton;
+
+  // static int static_number_;
+  // int number_;
 
 };
 

@@ -33,4 +33,16 @@ time_t Button::getTimeStamp() const
 {
   return timeStamp;
 }
+  
+bool Button::operator << (const Button &rhs)
+{
+  bool success = false;
+  if(this->gpioId == rhs.getGpio())
+  {
+    this->buttonState = rhs.getState();
+    this->timeStamp = rhs.getTimeStamp();
+    success = true;
+  }
+  return success;
+}
 

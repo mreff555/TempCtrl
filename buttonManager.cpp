@@ -1,18 +1,16 @@
-#include "common.hpp"
 #include "buttonManager.hpp"
 #include "buttonSubscriber_I.hpp"
-#include <sys/mman.h>
-#include <fcntl.h>
+#include "common.hpp"
+#include <algorithm>
+#include <chrono>
 #include <cstdint>
 #include <cstdlib>
-#include <errno.h>
-#include <unistd.h>
-#include <thread>
-#include <chrono>
-  
-// DEBUG
-#include <iostream>
 #include <cstdio>
+#include <errno.h>
+#include <fcntl.h>
+#include <sys/mman.h>
+#include <thread>
+#include <unistd.h>
 
 ButtonManager::ButtonManager() 
 : buttonArr((Button *)calloc(GPIO_MAX, sizeof(Button)))
@@ -22,6 +20,7 @@ ButtonManager::ButtonManager()
 
 ButtonManager::~ButtonManager()
 {
+
 }
 
 bool ButtonManager::init()
@@ -71,6 +70,7 @@ void ButtonManager::startEventLoop(bool &terminate)
 
   while(terminate == false)
   {
+    //printf("LOOP\n");
     for(int i = 0; i <= GPIO_MAX; ++i)
     {
       // This SHOULD work for all GPIO's if I remember correctly
@@ -90,7 +90,6 @@ void ButtonManager::startEventLoop(bool &terminate)
       }
   
       /* Button logic */
-
       if(buttonArr[tempGpio].getState() == DEFAULT_STATE && newButtonValue == 0) // no change
       {
 
@@ -146,18 +145,25 @@ void ButtonManager::startEventLoop(bool &terminate)
 
 void ButtonManager::attach(uint8_t gpio, ButtonSubscriber_I *subscriber)
 {
-  //subscriberList.insert(
-  //  std::pair<uint8_t, ButtonSubscriber_I *>(gpio, subscriber)); 
+  SubscriberEntry se(subscriber, Bitfield(gpio));
+  subscriberList.push_back(se);
 }
   
 void ButtonManager::detach(uint8_t gpio, ButtonSubscriber_I *subscriber)
 {
-  // std::pair<uint8_t, ButtonSubscriber_I *>(gpio, subscriber) key;
-  //subscriberMap.erase(key);
+  SubscriberEntry se(subscriber, Bitfield(gpio));
+  auto it = std::find(std::begin(subscriberList), std::end(subscriberList), se);
 }
   
 void ButtonManager::notify(uint8_t gpio)
 {
+  auto it = subscriberList.begin();
+  while(it != subscriberList.end())
+  {
+    if((*it).second.isSet(gpio))
+      (*it).first->update(buttonArr[gpio]);
+    ++it;
+  }
   // std::list<ButtonSubscriber_I *>::iterator it = subscriberList.begin();
   // while(it != subscriberList.end())
   // {

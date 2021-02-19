@@ -1,8 +1,13 @@
 #ifndef COMMON_HPP
 #define COMMON_HPP
 
+#include <list>
 #include <string>
 #include <ctime>
+#include <utility>
+
+class Bitfield;
+class ButtonSubscriber_I;
 
 #define GPIO_MAX    53
 #define BLOCK_SIZE  (4*1024)
@@ -20,6 +25,9 @@
 // This is the minimum time a button must be held to handle the interaction
 // as a held button.
 #define MIN_BUTTON_HOLD_TIME    500  // milliseconds
+
+typedef std::pair<ButtonSubscriber_I *, Bitfield> SubscriberEntry;
+typedef std::list<SubscriberEntry> SubscriberList;
 
 enum ButtonState
 {

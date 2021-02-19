@@ -20,6 +20,8 @@ class Button
 
   time_t getTimeStamp() const;
 
+  bool operator << (const Button &rhs);
+
   private:
   uint8_t gpioId;
   ButtonState buttonState;
