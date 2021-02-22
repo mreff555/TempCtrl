@@ -2,6 +2,7 @@
 #define COMMON_HPP
 
 #include <list>
+#include <cstdint>
 #include <string>
 #include <ctime>
 #include <utility>

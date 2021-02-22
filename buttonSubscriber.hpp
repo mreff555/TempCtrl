@@ -3,7 +3,9 @@
 
 #include "buttonSubscriber_I.hpp"
 #include "button.hpp"
+#include <cstdint>
 #include <vector>
+
 
 class ButtonManager;
 
@@ -21,19 +23,11 @@ class ButtonSubscriber : public ButtonSubscriber_I
   void unsubscribe(uint8_t gpio);
 
   private:
-  
   ButtonManager &buttonManager;
  
-  // This vector does nothing yet.  I think I am going to have to iterate
-  // through a list of buttons, but need need the cleanest way of doing so 
-  std::vector<Button> localButtonList;
-  Button menuButton;
-  // Button backButton;
-  // Button upButton;
-  // Button downButton;
-
-  // static int static_number_;
-  // int number_;
+//  protected:
+  public:
+  std::vector<Button> registeredButton;
 
 };
 

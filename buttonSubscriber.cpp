@@ -1,29 +1,36 @@
 #include "buttonSubscriber.hpp"
 #include "buttonManager.hpp"
+#include <cstdio>
 class Button;
 
-// int ButtonSubscriber::static_number_ = 0;
-
 ButtonSubscriber::ButtonSubscriber(ButtonManager &_buttonManager) 
-: buttonManager(_buttonManager),
-menuButton(26)
+: buttonManager(_buttonManager)
 {
-  buttonManager.addButton(menuButton);
-  subscribe(menuButton.getGpio());
+  registeredButton.push_back(Button(26));  // Menu button
+  buttonManager.addButton(registeredButton.back());
+  subscribe(registeredButton.back().getGpio());
 }
 
 ButtonSubscriber::~ButtonSubscriber()
 {
-  unsubscribe(menuButton.getGpio());
+  auto it = registeredButton.begin();
+  while(it != registeredButton.end())
+  {
+    unsubscribe(it->getGpio());
+    ++it;
+  }
 }
 
 void ButtonSubscriber::update(const Button &buttonUpdate)
 {
-  // TODO: Everything with the subscription should be good
-  // up to this point.  The problem is that we need a method
-  // of knowning which button to pass the update to. We
-  // will probably need a method of iterating through
-  // buttons in this class and comparing. 
+  auto it = registeredButton.begin();
+  while(it != registeredButton.end())
+  {
+    // The button << overload copies data for matching button ID's only.
+    // This isn't 100% intuitive, but I'm going to do it anyway.
+    (*it) << buttonUpdate;
+    ++it;
+  }
 }
 
 void ButtonSubscriber::subscribe(uint8_t gpio)

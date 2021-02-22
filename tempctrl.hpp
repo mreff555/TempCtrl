@@ -23,6 +23,8 @@ public:
 
   virtual ~TempCtrl();
 
+  void startEventLoop(bool &terminate);
+
   /***********************************************
   *  Fetches the current time from the specified *
   *  temperature controller, and stores the      *

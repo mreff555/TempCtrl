@@ -24,6 +24,11 @@ TempCtrl::~TempCtrl(void)
 
 }
 
+void TempCtrl::startEventLoop(bool &terminate)
+{
+
+}
+
 uint8_t TempCtrl::tempInit(void)
 {
   uint8_t slaveCount = 0;

@@ -4,6 +4,9 @@
 #include <signal.h>
 #include <memory>
 
+#include <chrono>
+#include <thread>
+
 /* Terminate processing flag */
 bool terminate = false;
   
@@ -20,17 +23,6 @@ int main()
   ButtonManager *buttonManager = new ButtonManager;
   ButtonSubscriber *subscriber = new ButtonSubscriber(*buttonManager);
   
-  /* Add GPIO 26 to the list of GPIO's for the button manager to query */
-  /* Since this call creates the button objects.  It must be called    */
-  /* before subscribers can subscribe to the button. */
-  // buttonManager->addButton(Button(26));
-  
-  /* Subscribe to GPIO 26 notifications                                */
-  /* The whole buttonSubscriber class is temporary until it works and  */
-  /* can be simplified as much as possible.  Each functional element   */
-  /* will independantly subscribe to buttons that it needs.            */
-  // subscriber->subscribe(26); 
-   
   TempCtrl tc;
   tc.getTemp(0);
   // TODO: this should be void parameters.  Make a setter for
@@ -39,6 +31,7 @@ int main()
 
   /* Start event loops */
   buttonManager->startEventLoop(terminate);
+  //std::thread buttonManagerThread(&ButtonManager::startEventLoop, buttonManager, terminate);
   while(!terminate)
   {
     // TODO Why do I have this here.  This should be in a loop on
@@ -47,8 +40,9 @@ int main()
     tc.getTemp(0);
     if(previousTemp != tc.tempStruct.back().temp)
     tc.printTemp(tc.tempScaleVal);
+    std::this_thread::sleep_for(std::chrono::milliseconds(SCAN_RATE));
   } 
-  
+  // buttonManagerThread.join();
   delete subscriber;
   delete buttonManager;
 }

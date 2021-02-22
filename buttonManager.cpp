@@ -70,7 +70,6 @@ void ButtonManager::startEventLoop(bool &terminate)
 
   while(terminate == false)
   {
-    //printf("LOOP\n");
     for(int i = 0; i <= GPIO_MAX; ++i)
     {
       // This SHOULD work for all GPIO's if I remember correctly
@@ -164,14 +163,4 @@ void ButtonManager::notify(uint8_t gpio)
       (*it).first->update(buttonArr[gpio]);
     ++it;
   }
-  // std::list<ButtonSubscriber_I *>::iterator it = subscriberList.begin();
-  // while(it != subscriberList.end())
-  // {
-  //   if((*it)->getGpio() == gpio)
-  //   {
-  //     printf("updating gpio %u\n",gpio);
-  //     (*it)->update(buttonArr[gpio].getState());
-  //     ++it;
-  //   }
-  // }
 }
