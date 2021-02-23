@@ -9,7 +9,7 @@ CFLAGS += -Wno-psabi
 
 # Currently this is the only non-gnu dependancey.  It is also depriciated, I would prefer to get rid of it
 # however I was not able to find good documentation for the I2C 1602 LCD screen
-LDFLAGS = -lwiringPi
+LDFLAGS = -lwiringPi -lpthread
 EXE=tempctrl
 
 all: $(SRC) $(EXE)

@@ -1,8 +1,8 @@
 #include "tempctrl.hpp"
-// #include "button.hpp"
 #include <fstream>
 #include <errno.h>
 #include <string>
+#include <thread>
 #include <cstdio> // Debug purposes only
 
 TempCtrl::TempCtrl(void) 
@@ -26,7 +26,14 @@ TempCtrl::~TempCtrl(void)
 
 void TempCtrl::startEventLoop(bool &terminate)
 {
-
+  while(terminate == false)
+  {
+    static float previousTemp = tempStruct.back().temp;
+    getTemp(0);
+    if(previousTemp != tempStruct.back().temp)
+    printTemp(tempScaleVal);
+    std::this_thread::sleep_for(std::chrono::milliseconds(SCAN_RATE));
+  }
 }
 
 uint8_t TempCtrl::tempInit(void)

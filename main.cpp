@@ -30,19 +30,12 @@ int main()
   tc.printTemp(tc.tempScaleVal);
 
   /* Start event loops */
-  buttonManager->startEventLoop(terminate);
-  //std::thread buttonManagerThread(&ButtonManager::startEventLoop, buttonManager, terminate);
-  while(!terminate)
-  {
-    // TODO Why do I have this here.  This should be in a loop on
-    // it's own thread.  Like the button Manager
-    static float previousTemp = tc.tempStruct.back().temp;
-    tc.getTemp(0);
-    if(previousTemp != tc.tempStruct.back().temp)
-    tc.printTemp(tc.tempScaleVal);
-    std::this_thread::sleep_for(std::chrono::milliseconds(SCAN_RATE));
-  } 
-  // buttonManagerThread.join();
+  std::thread buttonManagerThread(&ButtonManager::startEventLoop, buttonManager, std::ref(terminate));
+  std::thread tempCtrlThread(&TempCtrl::startEventLoop, &tc, std::ref(terminate));
+  
+  buttonManagerThread.join();
+  tempCtrlThread.join();
+
   delete subscriber;
   delete buttonManager;
 }
