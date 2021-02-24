@@ -1,9 +1,9 @@
-#include "tempctrl.hpp"
 #include "buttonManager.hpp"
+#include "tempdatamanager.hpp"
+#include "tempctrl.hpp"
 #include "buttonSubscriber.hpp"
 #include <signal.h>
 #include <memory>
-
 #include <chrono>
 #include <thread>
 
@@ -22,6 +22,8 @@ int main()
 
   ButtonManager *buttonManager = new ButtonManager;
   ButtonSubscriber *subscriber = new ButtonSubscriber(*buttonManager);
+  TempDataManager *tempDataManager = new TempDataManager(*buttonManager);
+    
   
   TempCtrl tc;
   tc.getTemp(0);

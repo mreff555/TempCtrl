@@ -27,7 +27,6 @@ void LcdScreen::backLightOff()
 void LcdScreen::sendActualTemp(const char * buffer)
 {
   mtx.lock();
-  // clrLcd();
   lcdLoc(LINE1);
   typeLn("Temp: ");
   typeLn(buffer);

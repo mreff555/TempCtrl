@@ -18,14 +18,20 @@ class ButtonSubscriber_I;
 #define GPLEV1      14
 
 // This is the timeout for the event loop.  Be conservative until we know
-// what this thing can handle
-// TODO: should probably rename this.  It was fine as it was when these macros
-// were located in the buttonManager.  Now it is poorly named
+// what this thing can handle.
 #define SCAN_RATE   5  // milliseconds
 
 // This is the minimum time a button must be held to handle the interaction
 // as a held button.
 #define MIN_BUTTON_HOLD_TIME    500  // milliseconds
+
+// This is the buffer size for historical temperature data.
+#define TEMP_HISTORY_SIZE 50
+
+// Maximum and minimum temperatures are in celsius
+#define TEMP_MAX_SP 100
+
+#define TEMP_MIN_SP 20
 
 typedef std::pair<ButtonSubscriber_I *, Bitfield> SubscriberEntry;
 typedef std::list<SubscriberEntry> SubscriberList;
@@ -67,6 +73,6 @@ enum InputMode_E
   SETPOINT,
   LOAD_PROFILE,
   PID_TUNE,
-  MAX_VALUE_INPUT_MODE
+  INPUT_MODE_MAX_VALUE
 }; 
 #endif /* COMMON_HPP */

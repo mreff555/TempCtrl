@@ -25,7 +25,7 @@ class ButtonSubscriber : public ButtonSubscriber_I
   private:
   ButtonManager &buttonManager;
  
-//  protected:
+//protected:
   public:
   std::vector<Button> registeredButton;
 
