@@ -1,42 +1,24 @@
-#include "tempctrl.hpp"
+#include "thermocoupleReceiver.hpp"
+#include "dataManager.hpp"
+#include "common.hpp"
+#include <cstdint>
 #include <fstream>
 #include <errno.h>
 #include <string>
 #include <thread>
-#include <cstdio> // Debug purposes only
 
-TempCtrl::TempCtrl(void) 
-: mLcdScreen(std::unique_ptr<LcdScreen>(new LcdScreen))//,
-// mButtonManager(std::unique_ptr<ButtonManager>(new ButtonManager))
+ThermocoupleReceiver::ThermocoupleReceiver(DataManager &_dataManager) : mDataManager(_dataManager) 
 {
-  // Sets up a file descriptor to screen scrape the w1 thermocouple
-  // This may be temporary, as it is inheriently slow
-  tempInit();
-  
-  // Need I say more. 
+  printf("Initializing Thermocouple Receiver: %s\n", init() ? "PASS" : "FAIL");
   setTempScale(DEFAULT_TEMP_SCALE);
-
-  // Button button1(26);
 }
 
-TempCtrl::~TempCtrl(void)
+ThermocoupleReceiver::~ThermocoupleReceiver()
 {
 
 }
 
-void TempCtrl::startEventLoop(bool &terminate)
-{
-  while(terminate == false)
-  {
-    static float previousTemp = tempStruct.back().temp;
-    getTemp(0);
-    if(previousTemp != tempStruct.back().temp)
-    printTemp(tempScaleVal);
-    std::this_thread::sleep_for(std::chrono::milliseconds(SCAN_RATE));
-  }
-}
-
-uint8_t TempCtrl::tempInit(void)
+uint8_t ThermocoupleReceiver::init()
 {
   uint8_t slaveCount = 0;
   std::fstream SLA_CNT_FS(W1_SLAVE_COUNT, std::ios_base::in);
@@ -74,11 +56,31 @@ uint8_t TempCtrl::tempInit(void)
   {
     perror("Failed to retrieve slave count ");
   }
-  
   return slavesArr.size();
 }
 
-void TempCtrl::getTemp(int idx)
+void ThermocoupleReceiver::startEventLoop(bool &terminate)
+{
+  getTemp(0);
+  printTemp(tempScaleVal);
+  while(terminate == false)
+  {
+    static float previousTemp = tempStruct.back().temp;
+    getTemp(0);
+    if(previousTemp != tempStruct.back().temp)
+    printTemp(tempScaleVal);
+    std::this_thread::sleep_for(std::chrono::milliseconds(SCAN_RATE));
+  }
+}
+
+
+/***********************************************
+*  Fetches the current time from the specified *
+*  temperature controller, and stores the      *
+*  returned value with time stamp and device   *
+*  id, in the tempStruct array.    
+************************************************/
+void ThermocoupleReceiver::getTemp(int idx)
 {
   std::string fpath(W1_DEV_ROOT);
   fpath += slavesArr[idx];
@@ -102,22 +104,15 @@ void TempCtrl::getTemp(int idx)
   tempStruct.push_back(ts);
 }
 
-void TempCtrl::setTempScale(TScale_E scale)
+
+void ThermocoupleReceiver::setTempScale(TScale_E scale)
 {
   if(scale > -1 && scale < MAX_VALUE_TSCALE)
     tempScaleVal = scale;  
-
 }
 
-void TempCtrl::wait(size_t seconds)
-{
-  clock_t clockPerMS = CLOCKS_PER_SEC / 1000;
-  clock_t end;
-  end = clock() + seconds * clockPerMS;
-  while(clock() < end) {}
-}
 
-void TempCtrl::printTemp(enum TScale_E scale = CELSIUS)
+void ThermocoupleReceiver::printTemp(enum TScale_E scale = CELSIUS)
 {
   std::string strbuf;
   switch (scale)
@@ -143,5 +138,6 @@ void TempCtrl::printTemp(enum TScale_E scale = CELSIUS)
       strbuf += "R";
       break;
   }
-  mLcdScreen->sendActualTemp(strbuf.c_str());
+  mDataManager.sendTempToLcd(strbuf.c_str());
 }
+

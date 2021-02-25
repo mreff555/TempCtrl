@@ -1,8 +1,7 @@
-#include "lcdscreen.hpp"
+#include "lcdScreen.hpp"
 #include <cstdlib>
-#include <cstdio> // for sprintf
 
-LcdScreen::LcdScreen()
+LcdScreen::LcdScreen() 
 {
   if(wiringPiSetup() == -1) exit(1);
   fd = wiringPiI2CSetup(I2C_ADDR);

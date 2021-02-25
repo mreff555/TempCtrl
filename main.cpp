@@ -1,6 +1,7 @@
 #include "buttonManager.hpp"
-#include "tempdatamanager.hpp"
-#include "tempctrl.hpp"
+#include "dataManager.hpp"
+#include "thermocoupleReceiver.hpp"
+#include "lcdScreen.hpp"
 #include "buttonSubscriber.hpp"
 #include <signal.h>
 #include <memory>
@@ -21,23 +22,23 @@ int main()
   signal(SIGINT, sigHandler); /* Ctrl + C */
 
   ButtonManager *buttonManager = new ButtonManager;
+  LcdScreen *lcdScreen = new LcdScreen();
+  DataManager *dataManager = new DataManager(*buttonManager, *lcdScreen);
+  ThermocoupleReceiver *thermocoupleReceiver = new ThermocoupleReceiver(*dataManager);
   ButtonSubscriber *subscriber = new ButtonSubscriber(*buttonManager);
-  TempDataManager *tempDataManager = new TempDataManager(*buttonManager);
     
-  
-  TempCtrl tc;
-  tc.getTemp(0);
-  // TODO: this should be void parameters.  Make a setter for
-  // the scale and make this value private
-  tc.printTemp(tc.tempScaleVal);
-
   /* Start event loops */
-  std::thread buttonManagerThread(&ButtonManager::startEventLoop, buttonManager, std::ref(terminate));
-  std::thread tempCtrlThread(&TempCtrl::startEventLoop, &tc, std::ref(terminate));
+  std::thread buttonManagerThread(
+    &ButtonManager::startEventLoop, buttonManager, std::ref(terminate));
+  std::thread thermocoupleThread(
+    &ThermocoupleReceiver::startEventLoop, thermocoupleReceiver, std::ref(terminate));
   
   buttonManagerThread.join();
-  tempCtrlThread.join();
+  thermocoupleThread.join();
 
   delete subscriber;
+  delete ThermocoupleReceiver;
+  delete dataManager;
+  delete lcdScreen;
   delete buttonManager;
 }

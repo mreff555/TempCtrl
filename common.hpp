@@ -33,6 +33,14 @@ class ButtonSubscriber_I;
 
 #define TEMP_MIN_SP 20
 
+#define W1_DEV_ROOT "/sys/bus/w1/devices/w1_bus_master1/"
+
+#define W1_SLAVE_COUNT W1_DEV_ROOT "w1_master_slave_count"
+
+#define W1_SLAVES W1_DEV_ROOT "w1_master_slaves"
+
+#define POLL_FREQ 1000
+
 typedef std::pair<ButtonSubscriber_I *, Bitfield> SubscriberEntry;
 typedef std::list<SubscriberEntry> SubscriberList;
 

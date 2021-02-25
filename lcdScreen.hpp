@@ -1,7 +1,6 @@
 #ifndef LCD_SCREEN_HPP
 #define LCD_SCREEN_HPP
 
-//#include "buttonSubscriber.hpp"
 #include <wiringPi.h>
 #include <wiringPiI2C.h>
 #include <mutex>
@@ -32,7 +31,7 @@
 class LcdScreen// : public ButtonSubscriber 
 {
   public:
-  LcdScreen(void);
+  LcdScreen();
 
   virtual ~LcdScreen(void);
 

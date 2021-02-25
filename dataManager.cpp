@@ -1,14 +1,17 @@
-#include "tempdatamanager.hpp"
+#include "dataManager.hpp"
 #include "buttonManager.hpp"
 #include <cstdint>
 
-TempDataManager::TempDataManager(ButtonManager &_buttonManager) 
-: buttonManager(_buttonManager)
+DataManager::DataManager(
+  ButtonManager &_buttonManager, 
+  LcdScreen &_lcdScreen) 
+: buttonManager(_buttonManager), 
+mLcdScreen(_lcdScreen)
 {
   init();
 }
 
-TempDataManager::~TempDataManager()
+DataManager::~DataManager()
 {
   auto it = registeredButton.begin();
   while(it != registeredButton.end())
@@ -19,7 +22,7 @@ TempDataManager::~TempDataManager()
 
 }
 
-void TempDataManager::update(const Button &buttonUpdate)
+void DataManager::update(const Button &buttonUpdate)
 {
   auto it = registeredButton.begin();
   while(it != registeredButton.end())
@@ -31,32 +34,32 @@ void TempDataManager::update(const Button &buttonUpdate)
   }
 }
 
-void TempDataManager::subscribe(uint8_t gpio)
+void DataManager::subscribe(uint8_t gpio)
 {
   this->buttonManager.attach(gpio, this); 
 }
 
-void TempDataManager::unsubscribe(uint8_t gpio = 0)
+void DataManager::unsubscribe(uint8_t gpio = 0)
 {
   this->buttonManager.detach(gpio, this);
 }
 
-void TempDataManager::init()
+void DataManager::init()
 {
 
 }
 
-void TempDataManager::shutdown()
+void DataManager::shutdown()
 {
 
 }
 
-TempStruct TempDataManager::getCurrentTempStruct() const
+TempStruct DataManager::getCurrentTempStruct() const
 {
   return mTempStructList.back();
 }
 
-void TempDataManager::setCurrentTempStruct(const TempStruct tempStruct)
+void DataManager::setCurrentTempStruct(const TempStruct tempStruct)
 {
   if(mTempStructList.size() >= TEMP_HISTORY_SIZE)
   {
@@ -66,23 +69,23 @@ void TempDataManager::setCurrentTempStruct(const TempStruct tempStruct)
   mTempStructList.push_back(tempStruct);
 }
 
-std::list<TempStruct> TempDataManager::getTempStructHistory() const
+std::list<TempStruct> DataManager::getTempStructHistory() const
 {
   //TODO: return by reference
   return mTempStructList;
 }
 
-TScale_E TempDataManager::getTempScale() const
+TScale_E DataManager::getTempScale() const
 {
   return mTempScale;
 }
 
-void TempDataManager::setTempScale(const TScale_E tScale)
+void DataManager::setTempScale(const TScale_E tScale)
 {
   mTempScale = tScale;
 }
 
-void TempDataManager::nextTempScale()
+void DataManager::nextTempScale()
 {
   int temp;
   temp = (int)mTempScale + 1;
@@ -90,20 +93,25 @@ void TempDataManager::nextTempScale()
   mTempScale = (TScale_E)temp;
 }
 
-InputMode_E TempDataManager::getInputMode() const
+InputMode_E DataManager::getInputMode() const
 {
   return mInputMode;  
 }
 
-void TempDataManager::setInputMode(const InputMode_E inputMode)
+void DataManager::setInputMode(const InputMode_E inputMode)
 {
   mInputMode = inputMode;
 }
 
-void TempDataManager::nextInputMode()
+void DataManager::nextInputMode()
 {
   int temp;
   temp = (int)mInputMode + 1;
   if(temp >= (int)INPUT_MODE_MAX_VALUE) { temp = 0; }
   mInputMode = (InputMode_E)temp;
+}
+
+void DataManager::sendTempToLcd(std::string tempstr)
+{
+  mLcdScreen.sendActualTemp(tempstr.c_str());
 }

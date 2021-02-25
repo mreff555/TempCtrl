@@ -2,3 +2,4 @@
 *.swo
 *.o
 tempctrl
+.backup

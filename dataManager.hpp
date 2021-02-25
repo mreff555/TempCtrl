@@ -1,19 +1,23 @@
-#ifndef TEMPDATAMANAGER_HPP
-#define TEMPDATAMANAGER_HPP
+#ifndef DATAMANAGER_HPP
+#define DATAMANAGER_HPP
 #include "buttonSubscriber_I.hpp"
+#include "lcdScreen.hpp"
 #include "common.hpp"
 #include "button.hpp"
 #include <list>
+#include <string>
 #include <vector>
 
 class ButtonManager;
 
-class TempDataManager : public ButtonSubscriber_I
+class DataManager : public ButtonSubscriber_I
 {
 public:
-  TempDataManager(ButtonManager &_buttonManager);
+  DataManager(
+    ButtonManager &_buttonManager, 
+    LcdScreen &_lcdScreen);
 
-  ~TempDataManager();
+  ~DataManager();
   
   void update(const Button &buttonUpdate) override;
 
@@ -43,8 +47,12 @@ public:
 
   void nextInputMode();
 
+  void sendTempToLcd(std::string tempstr);
+
 private:
   ButtonManager &buttonManager;  
+
+  LcdScreen &mLcdScreen;
 
   std::list<TempStruct> mTempStructList;
 
@@ -52,9 +60,10 @@ private:
 
   InputMode_E mInputMode;
 
+  std::string currentTempString;
 //protected:
   public:
   std::vector<Button> registeredButton;
 };
 
-#endif /* TEMPDATAMANAGER_HPP */
+#endif /* DATAMANAGER_HPP */
