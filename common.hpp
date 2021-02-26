@@ -33,6 +33,10 @@ class ButtonSubscriber_I;
 
 #define TEMP_MIN_SP 20
 
+// If the Data Manager is unable to get thermocouple input during initialization.
+// This is the default value in celsius, which temperature will be set to.
+#define TEMP_SP_DEFAULT 20
+
 #define W1_DEV_ROOT "/sys/bus/w1/devices/w1_bus_master1/"
 
 #define W1_SLAVE_COUNT W1_DEV_ROOT "w1_master_slave_count"

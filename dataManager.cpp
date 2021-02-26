@@ -74,6 +74,14 @@ void DataManager::init()
   registeredButton.push_back(Button(26));  // Menu button
   buttonManager.addButton(registeredButton.back());
   subscribe(registeredButton.back().getGpio());
+  if(mTempStructList.size() > 0)
+  {
+    setPoint = mTempStructList.back().temp;
+  }
+  else
+  {
+    setPoint = TEMP_SP_DEFAULT;
+  }
 }
 
 void DataManager::shutdown()

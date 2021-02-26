@@ -8,7 +8,7 @@ class DataManager;
 class ThermocoupleReceiver
 {
 public:
-  ThermocoupleReceiver(DataManager &_buttonManager);
+  ThermocoupleReceiver(DataManager &_dataManager);
 
   virtual ~ThermocoupleReceiver();
 
@@ -22,10 +22,12 @@ public:
   ************************************************/
   void getTemp(int idx = 0);
 
+  // TODO: look into moving to datamanager
   void setTempScale(TScale_E);
 
   void lcdToggleEnable(int bits);
 
+  // TODO: move to LcdScreen
   void printTemp(enum TScale_E);
 
 private:
@@ -35,8 +37,10 @@ private:
   
   std::vector<std::string> slavesArr;
 
+  // TODO: MOVE TO DATA MANAGER
   std::vector<TempStruct> tempStruct;
   
+  // TODO: look into moving to data manager
   TScale_E tempScaleVal = CELSIUS;
 
   int fd;

@@ -63,8 +63,9 @@ private:
   InputMode_E mInputMode;
 
   std::string currentTempString;
-//protected:
-  public:
+
+  float setPoint;
+  
   std::vector<Button> registeredButton;
 };
 

@@ -12,7 +12,6 @@ LcdScreen::LcdScreen()
 LcdScreen::~LcdScreen()
 {
   backLightOff();
-  //std::cout << "dtor\n";
 }
 
 void LcdScreen::backLightOff()
