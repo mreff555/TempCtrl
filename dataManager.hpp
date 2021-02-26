@@ -19,6 +19,8 @@ public:
 
   ~DataManager();
   
+  void startEventLoop(bool &terminate);
+  
   void update(const Button &buttonUpdate) override;
 
   void subscribe(uint8_t gpio);  

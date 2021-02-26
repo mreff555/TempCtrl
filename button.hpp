@@ -22,6 +22,8 @@ class Button
 
   bool operator << (const Button &rhs);
 
+  //bool operator > (const Button &rhs);
+
   private:
   uint8_t gpioId;
   ButtonState buttonState;

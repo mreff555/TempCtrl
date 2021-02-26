@@ -1,5 +1,6 @@
 #include "lcdScreen.hpp"
 #include <cstdlib>
+#include  <iostream>
 
 LcdScreen::LcdScreen() 
 {
@@ -11,6 +12,7 @@ LcdScreen::LcdScreen()
 LcdScreen::~LcdScreen()
 {
   backLightOff();
+  //std::cout << "dtor\n";
 }
 
 void LcdScreen::backLightOff()

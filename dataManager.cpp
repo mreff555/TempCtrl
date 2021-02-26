@@ -1,7 +1,8 @@
 #include "dataManager.hpp"
 #include "buttonManager.hpp"
 #include <cstdint>
-
+#include <thread>
+#include <iostream>
 DataManager::DataManager(
   ButtonManager &_buttonManager, 
   LcdScreen &_lcdScreen) 
@@ -20,6 +21,30 @@ DataManager::~DataManager()
     ++it;
   }
 
+}
+
+void DataManager::startEventLoop(bool &terminate)
+{
+  std::vector<Button> lastState(registeredButton);
+  while(terminate == false)
+  {
+    for(int i = 0; i < registeredButton.size(); ++i)
+    {
+      if(difftime(registeredButton[i].getTimeStamp(), 
+          lastState[i].getTimeStamp()) > 0.5
+      && registeredButton[i].getState() == FALLING_EDGE
+      // TODO: this doesn't work.  Figure out why.
+      && lastState[i].getState() != LONG_HOLD)
+      {
+        if(registeredButton[i].getGpio() == 26)
+        {
+          registeredButton[i] << lastState[i];
+          nextInputMode();
+        } 
+      }
+    }
+    std::this_thread::sleep_for(std::chrono::milliseconds(SCAN_RATE));
+  }
 }
 
 void DataManager::update(const Button &buttonUpdate)
@@ -46,12 +71,19 @@ void DataManager::unsubscribe(uint8_t gpio = 0)
 
 void DataManager::init()
 {
-
+  registeredButton.push_back(Button(26));  // Menu button
+  buttonManager.addButton(registeredButton.back());
+  subscribe(registeredButton.back().getGpio());
 }
 
 void DataManager::shutdown()
 {
-
+  auto it = registeredButton.begin();
+  while(it != registeredButton.end())
+  {
+    unsubscribe(it->getGpio());
+    ++it;
+  }
 }
 
 TempStruct DataManager::getCurrentTempStruct() const
@@ -109,6 +141,7 @@ void DataManager::nextInputMode()
   temp = (int)mInputMode + 1;
   if(temp >= (int)INPUT_MODE_MAX_VALUE) { temp = 0; }
   mInputMode = (InputMode_E)temp;
+  std::cout << "InputMOde: " << (int)mInputMode << "\n";
 }
 
 void DataManager::sendTempToLcd(std::string tempstr)

@@ -34,6 +34,10 @@ time_t Button::getTimeStamp() const
   return timeStamp;
 }
   
+/***************************************************/
+/* If gpio's match, update timestamp and state and */
+/* return true.  Otherwise return false            */
+/***************************************************/
 bool Button::operator << (const Button &rhs)
 {
   bool success = false;
@@ -45,4 +49,13 @@ bool Button::operator << (const Button &rhs)
   }
   return success;
 }
+
+/***************************************************/
+/* Returns true if the the button's time stamp is  */
+/* newer than the one it is being compared to.     */
+/***************************************************/
+// bool Button::operator > (const Button &rhs)
+// {
+//   return getTimeStamp() > rhs.getTimeStamp();
+// }
 

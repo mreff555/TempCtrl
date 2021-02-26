@@ -30,15 +30,18 @@ int main()
   /* Start event loops */
   std::thread buttonManagerThread(
     &ButtonManager::startEventLoop, buttonManager, std::ref(terminate));
+  std::thread dataManagerThread(
+    &DataManager::startEventLoop, dataManager, std::ref(terminate));
   std::thread thermocoupleThread(
     &ThermocoupleReceiver::startEventLoop, thermocoupleReceiver, std::ref(terminate));
   
   buttonManagerThread.join();
+  dataManagerThread.join();
   thermocoupleThread.join();
 
-  delete subscriber;
-  delete ThermocoupleReceiver;
-  delete dataManager;
   delete lcdScreen;
+  delete subscriber;
+  delete thermocoupleReceiver;
+  delete dataManager;
   delete buttonManager;
 }
