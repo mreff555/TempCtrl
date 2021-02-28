@@ -49,7 +49,9 @@ public:
 
   void nextInputMode();
 
-  void sendTempToLcd(std::string tempstr);
+  float getSetPoint() const;
+
+  void setSetPoint(const float setPoint);
 
 private:
   ButtonManager &mButtonManager;  
@@ -61,8 +63,6 @@ private:
   TScale_E mTempScale;
 
   InputMode_E mInputMode;
-
-  std::string currentTempString;
 
   float setPoint;
   

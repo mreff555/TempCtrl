@@ -2,6 +2,7 @@
 #define LCD_SCREEN_HPP
 
 #include "common.hpp"
+//#include "dataManager.hpp"
 #include <wiringPi.h>
 #include <wiringPiI2C.h>
 #include <mutex>
@@ -42,9 +43,11 @@ class LcdScreen
   void backLightOff(void);
   
   void sendTemp(float temp, TScale_E scale);  
+  
+  void sendNewMode(InputMode_E newMode, float setPoint, TScale_E scale);
 
-  void sendSetPoint(const char * buffer);
-
+  void sendSetPoint(const float setPoint, const TScale_E scale);
+  
   private:
   void lcdToggleEnable(int bits);
 

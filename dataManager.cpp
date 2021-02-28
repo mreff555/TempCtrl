@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <thread>
 #include <iostream>
+
 DataManager::DataManager(
   ButtonManager &_buttonManager, 
   LcdScreen &_lcdScreen) 
@@ -30,6 +31,11 @@ void DataManager::startEventLoop(bool &terminate)
   std::vector<Button> lastState(registeredButton);
   while(terminate == false)
   {
+    /***************************************************/
+    /* The conditions in this for loop make up the     */
+    /* general behavior of the buttons.  One-off       */
+    /* behavior can be implemented elsewhere.          */
+    /***************************************************/
     for(int i = 0; i < registeredButton.size(); ++i)
     {
       if(lastState[i].getState() != LONG_HOLD 
@@ -37,11 +43,18 @@ void DataManager::startEventLoop(bool &terminate)
           lastState[i].getTimeStamp()) > 0.5
         && registeredButton[i].getState() == FALLING_EDGE)
       {
+        /* Menu button */
         if(registeredButton[i].getGpio() == 26)
         {
           registeredButton[i] << lastState[i];
           nextInputMode();
-        } 
+        }
+        /* Up button */
+        if(0 /* registeredButton[i].getGpio() == ?? */) {}
+        /* Down button */
+        if(0 /* registeredButton[i].getGpio() == ?? */) {}
+        /* Back button */
+        if(0 /* registeredButton[i].getGpio() == ?? */) {}
       }
     }
   
@@ -159,10 +172,16 @@ void DataManager::nextInputMode()
   temp = (int)mInputMode + 1;
   if(temp >= (int)INPUT_MODE_MAX_VALUE) { temp = 0; }
   mInputMode = (InputMode_E)temp;
+  mLcdScreen.sendNewMode(mInputMode, setPoint, mTempScale);
   std::cout << "InputMOde: " << (int)mInputMode << "\n";
 }
 
-void DataManager::sendTempToLcd(std::string tempstr)
+float DataManager::getSetPoint() const
 {
-  mLcdScreen.sendTemp(mTempStructList.back().temp, mTempScale);
+  return setPoint;  
+}
+
+void DataManager::setSetPoint(const float sp)
+{
+  setPoint = sp;
 }

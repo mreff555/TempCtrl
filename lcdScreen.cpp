@@ -58,12 +58,53 @@ void LcdScreen::sendTemp(float temp, TScale_E scale)
   mtx.unlock();
 }
 
-void LcdScreen::sendSetPoint(const char * buffer)
+void LcdScreen::sendNewMode(InputMode_E newMode, float setPoint, TScale_E scale)
+{
+  switch(newMode)
+  {
+    case SETPOINT:
+      sendSetPoint(setPoint, scale);
+      break; 
+    case LOAD_PROFILE:
+      break;
+    case PID_TUNE:
+      break;
+    default:
+      /* Unspecified mode */
+      break;
+  }
+}
+
+void LcdScreen::sendSetPoint(const float setPoint, const TScale_E scale)
 {
   mtx.lock();
+  std::string strbuf;
+  switch (scale)
+  {
+    case CELSIUS:
+      strbuf += std::to_string(setPoint);
+      strbuf.erase(strbuf.find('.',0) + 4);
+      strbuf += "C";
+      break;
+    case FARENHEIT:
+      strbuf += std::to_string(32.000 + setPoint * 9.000 / 5.000);
+      strbuf.erase(strbuf.find('.',0) + 4);
+      strbuf += "F";
+      break;
+    case KELVIN:
+      strbuf += std::to_string(setPoint + 273.150);
+      strbuf.erase(strbuf.find('.',0) + 4);
+      strbuf += "K";
+      break;
+    case RANKINE:
+      strbuf += std::to_string((setPoint + 273.150) * 9.000 / 5.000);
+      strbuf.erase(strbuf.find('.',0) + 4);
+      strbuf += "R";
+      break;
+  }
   lcdLoc(LINE2);
-  typeLn("Setpoint: ");
-  typeLn(buffer);
+  typeLn("SetPt: ");
+  typeLn(strbuf.c_str());
   mtx.unlock();
 }
 
