@@ -23,12 +23,12 @@ public:
   void getTemp(int idx = 0);
 
   // TODO: look into moving to datamanager
-  void setTempScale(TScale_E);
+  // void setTempScale(TScale_E);
 
-  void lcdToggleEnable(int bits);
+  // void lcdToggleEnable(int bits);
 
   // TODO: move to LcdScreen
-  void printTemp(enum TScale_E);
+  // void printTemp(enum TScale_E);
 
 private:
   uint8_t init();
@@ -38,10 +38,10 @@ private:
   std::vector<std::string> slavesArr;
 
   // TODO: MOVE TO DATA MANAGER
-  std::vector<TempStruct> tempStruct;
+  // std::vector<TempStruct> tempStruct;
   
   // TODO: look into moving to data manager
-  TScale_E tempScaleVal = CELSIUS;
+  // TScale_E tempScaleVal = CELSIUS;
 
   int fd;
 };

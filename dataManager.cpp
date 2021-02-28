@@ -6,10 +6,10 @@
 DataManager::DataManager(
   ButtonManager &_buttonManager, 
   LcdScreen &_lcdScreen) 
-: buttonManager(_buttonManager), 
+: mButtonManager(_buttonManager), 
 mLcdScreen(_lcdScreen)
 {
-  init();
+  printf("Initializing Data Manager: %s\n", init() ? "PASS" : "FAIL");
 }
 
 DataManager::~DataManager()
@@ -25,16 +25,17 @@ DataManager::~DataManager()
 
 void DataManager::startEventLoop(bool &terminate)
 {
+  float previousTemp = 0;
+  mLcdScreen.sendTemp(mTempStructList.back().temp, mTempScale);
   std::vector<Button> lastState(registeredButton);
   while(terminate == false)
   {
     for(int i = 0; i < registeredButton.size(); ++i)
     {
-      if(difftime(registeredButton[i].getTimeStamp(), 
+      if(lastState[i].getState() != LONG_HOLD 
+        && difftime(registeredButton[i].getTimeStamp(), 
           lastState[i].getTimeStamp()) > 0.5
-      && registeredButton[i].getState() == FALLING_EDGE
-      // TODO: this doesn't work.  Figure out why.
-      && lastState[i].getState() != LONG_HOLD)
+        && registeredButton[i].getState() == FALLING_EDGE)
       {
         if(registeredButton[i].getGpio() == 26)
         {
@@ -43,6 +44,12 @@ void DataManager::startEventLoop(bool &terminate)
         } 
       }
     }
+  
+    if(previousTemp != mTempStructList.back().temp)
+    {
+      mLcdScreen.sendTemp(mTempStructList.back().temp, mTempScale);
+      previousTemp = mTempStructList.back().temp;
+    }  
     std::this_thread::sleep_for(std::chrono::milliseconds(SCAN_RATE));
   }
 }
@@ -61,18 +68,19 @@ void DataManager::update(const Button &buttonUpdate)
 
 void DataManager::subscribe(uint8_t gpio)
 {
-  this->buttonManager.attach(gpio, this); 
+  this->mButtonManager.attach(gpio, this); 
 }
 
 void DataManager::unsubscribe(uint8_t gpio = 0)
 {
-  this->buttonManager.detach(gpio, this);
+  this->mButtonManager.detach(gpio, this);
 }
 
-void DataManager::init()
+bool DataManager::init()
 {
+  bool success = false;
   registeredButton.push_back(Button(26));  // Menu button
-  buttonManager.addButton(registeredButton.back());
+  mButtonManager.addButton(registeredButton.back());
   subscribe(registeredButton.back().getGpio());
   if(mTempStructList.size() > 0)
   {
@@ -82,6 +90,8 @@ void DataManager::init()
   {
     setPoint = TEMP_SP_DEFAULT;
   }
+  setTempScale(DEFAULT_TEMP_SCALE);
+  return setPoint ? true : false;
 }
 
 void DataManager::shutdown()
@@ -154,5 +164,5 @@ void DataManager::nextInputMode()
 
 void DataManager::sendTempToLcd(std::string tempstr)
 {
-  mLcdScreen.sendActualTemp(tempstr.c_str());
+  mLcdScreen.sendTemp(mTempStructList.back().temp, mTempScale);
 }

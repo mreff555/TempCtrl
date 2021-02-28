@@ -1,6 +1,7 @@
 #ifndef LCD_SCREEN_HPP
 #define LCD_SCREEN_HPP
 
+#include "common.hpp"
 #include <wiringPi.h>
 #include <wiringPiI2C.h>
 #include <mutex>
@@ -23,12 +24,13 @@
 * Class: LcdScreen                             *
 *                                              *
 * Description:                                 *
-* The ONLY purpose of this class is to send    *
-* atomic safe instructions to the LCD screen.  *
-* Any logic operations should be done          *
-* elsewhere.                                   *
+* The purpose of this class is strictly for    *
+* sending thread safe data to the screen.      *
+* logic in this class should be limited to     *
+* unit conversions for items that will be      *
+* displayed                                    *             
 ************************************************/
-class LcdScreen// : public ButtonSubscriber 
+class LcdScreen
 {
   public:
   LcdScreen();
@@ -39,7 +41,7 @@ class LcdScreen// : public ButtonSubscriber
 
   void backLightOff(void);
   
-  void sendActualTemp(const char * buffer);
+  void sendTemp(float temp, TScale_E scale);  
 
   void sendSetPoint(const char * buffer);
 

@@ -1,6 +1,7 @@
 #include "lcdScreen.hpp"
 #include <cstdlib>
-#include  <iostream>
+#include <iostream>
+#include <string>
 
 LcdScreen::LcdScreen() 
 {
@@ -24,12 +25,36 @@ void LcdScreen::backLightOff()
   mtx.unlock();
 }
 
-void LcdScreen::sendActualTemp(const char * buffer)
+void LcdScreen::sendTemp(float temp, TScale_E scale)
 {
   mtx.lock();
+  std::string strbuf;
+  switch (scale)
+  {
+    case CELSIUS:
+      strbuf += std::to_string(temp);
+      strbuf.erase(strbuf.find('.',0) + 4);
+      strbuf += "C";
+      break;
+    case FARENHEIT:
+      strbuf += std::to_string(32.000 + temp * 9.000 / 5.000);
+      strbuf.erase(strbuf.find('.',0) + 4);
+      strbuf += "F";
+      break;
+    case KELVIN:
+      strbuf += std::to_string(temp + 273.150);
+      strbuf.erase(strbuf.find('.',0) + 4);
+      strbuf += "K";
+      break;
+    case RANKINE:
+      strbuf += std::to_string((temp + 273.150) * 9.000 / 5.000);
+      strbuf.erase(strbuf.find('.',0) + 4);
+      strbuf += "R";
+      break;
+  }
   lcdLoc(LINE1);
   typeLn("Temp: ");
-  typeLn(buffer);
+  typeLn(strbuf.c_str());
   mtx.unlock();
 }
 

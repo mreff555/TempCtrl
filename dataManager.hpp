@@ -27,7 +27,7 @@ public:
 
   void unsubscribe(uint8_t gpio);
 
-  void init();
+  bool init();
 
   void shutdown();
 
@@ -52,7 +52,7 @@ public:
   void sendTempToLcd(std::string tempstr);
 
 private:
-  ButtonManager &buttonManager;  
+  ButtonManager &mButtonManager;  
 
   LcdScreen &mLcdScreen;
 
