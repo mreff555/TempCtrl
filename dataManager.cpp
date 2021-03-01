@@ -4,13 +4,22 @@
 #include <thread>
 #include <iostream>
 
+/*********************************************
+* Class: DataManager                         *
+*                                            *
+* Description:                               *
+* The purpose of this class is to provide a  *
+* centralized location for storing input     *
+* data.                                      *
+**********************************************/
 DataManager::DataManager(
   ButtonManager &_buttonManager, 
   LcdScreen &_lcdScreen) 
 : mButtonManager(_buttonManager), 
 mLcdScreen(_lcdScreen)
 {
-  printf("Initializing Data Manager: %s\n", init() ? "PASS" : "FAIL");
+  printf("Initializing Data Manager: %s\n", 
+    init() ? "PASS" : "FAIL");
 }
 
 DataManager::~DataManager()
@@ -21,21 +30,25 @@ DataManager::~DataManager()
     unsubscribe(it->getGpio());
     ++it;
   }
-
 }
 
-void DataManager::startEventLoop(bool &terminate)
+void DataManager::startEventLoop(
+  bool &terminate)
 {
   float previousTemp = 0;
-  mLcdScreen.sendTemp(mTempStructList.back().temp, mTempScale);
-  std::vector<Button> lastState(registeredButton);
+  mLcdScreen.sendTemp(
+    mTempStructList.back().temp, 
+    mTempScale);
+  std::vector<Button> lastState(
+    registeredButton);
   while(terminate == false)
   {
-    /***************************************************/
-    /* The conditions in this for loop make up the     */
-    /* general behavior of the buttons.  One-off       */
-    /* behavior can be implemented elsewhere.          */
-    /***************************************************/
+    /*****************************************
+    * The conditions in this for loop make   *
+    * up the general behavior of the         *
+    * buttons. One-off behavior can be       *
+    * implemented elsewhere.                 *
+    *****************************************/
     for(int i = 0; i < registeredButton.size(); ++i)
     {
       if(lastState[i].getState() != LONG_HOLD 
@@ -92,9 +105,27 @@ void DataManager::unsubscribe(uint8_t gpio = 0)
 bool DataManager::init()
 {
   bool success = false;
-  registeredButton.push_back(Button(26));  // Menu button
+
+  /* Menu Button Registration */
+  registeredButton.push_back(Button(26));
   mButtonManager.addButton(registeredButton.back());
   subscribe(registeredButton.back().getGpio());
+
+  // /* Up Button Registration */
+  // registeredButton.push_back(Button(17));
+  // mButtonManager.addButton(registeredButton.back());
+  // subscribe(registeredButton.back().getGpio());
+
+  // /* Down Button Registration*/
+  // registeredButton.push_back(Button(27));
+  // mButtonManager.addButton(registeredButton.back());
+  // subscribe(registeredButton.back().getGpio());
+
+  // /* Back Button Registration*/
+  // registeredButton.push_back(Button(22));
+  // mButtonManager.addButton(registeredButton.back());
+  // subscribe(registeredButton.back().getGpio());
+
   if(mTempStructList.size() > 0)
   {
     setPoint = mTempStructList.back().temp;

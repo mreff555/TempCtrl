@@ -87,4 +87,16 @@ enum InputMode_E
   PID_TUNE,
   INPUT_MODE_MAX_VALUE
 }; 
+
+struct PidDataStruct
+{
+  std::string name;
+  std::string description;
+  float kP;
+  float kI;
+  float kD;
+  float volume;
+  /* Need thermodynamic coefficient of some type */
+};
+
 #endif /* COMMON_HPP */

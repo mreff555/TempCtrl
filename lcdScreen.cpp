@@ -3,6 +3,16 @@
 #include <iostream>
 #include <string>
 
+/*********************************************
+* Class: LcdScreen                           *
+*                                            *
+* Description:                               *
+* The purpose of this class is strictly for  *
+* sending thread safe data to the screen.    *
+* logic in this class should be limited to   *
+* unit conversions for items that will be    *
+* displayed                                  *
+**********************************************/
 LcdScreen::LcdScreen() 
 {
   if(wiringPiSetup() == -1) exit(1);
@@ -15,6 +25,13 @@ LcdScreen::~LcdScreen()
   backLightOff();
 }
 
+/*********************************************
+* Function: backlightoff                     *
+*                                            *
+* Description:                               *
+* Clears the LCD screen and turns the back   *
+* lighting off.                              *
+**********************************************/
 void LcdScreen::backLightOff()
 {
   mtx.lock();
@@ -25,7 +42,17 @@ void LcdScreen::backLightOff()
   mtx.unlock();
 }
 
-void LcdScreen::sendTemp(float temp, TScale_E scale)
+/*********************************************
+* Function: sendTemp                         *
+*                                            *
+* Description:                               *
+* Format temperature output to the LCD       *
+* screen based on input temp and desired     *
+* scale.                                     *
+**********************************************/
+void LcdScreen::sendTemp(
+  float temp, 
+  TScale_E scale)
 {
   mtx.lock();
   std::string strbuf;
@@ -37,7 +64,8 @@ void LcdScreen::sendTemp(float temp, TScale_E scale)
       strbuf += "C";
       break;
     case FARENHEIT:
-      strbuf += std::to_string(32.000 + temp * 9.000 / 5.000);
+      strbuf += std::to_string(
+        32.000 + temp * 9.000 / 5.000);
       strbuf.erase(strbuf.find('.',0) + 4);
       strbuf += "F";
       break;
@@ -47,7 +75,8 @@ void LcdScreen::sendTemp(float temp, TScale_E scale)
       strbuf += "K";
       break;
     case RANKINE:
-      strbuf += std::to_string((temp + 273.150) * 9.000 / 5.000);
+      strbuf += std::to_string(
+        (temp + 273.150) * 9.000 / 5.000);
       strbuf.erase(strbuf.find('.',0) + 4);
       strbuf += "R";
       break;
@@ -58,7 +87,16 @@ void LcdScreen::sendTemp(float temp, TScale_E scale)
   mtx.unlock();
 }
 
-void LcdScreen::sendNewMode(InputMode_E newMode, float setPoint, TScale_E scale)
+/*********************************************
+* Function: sendNewMode                      *
+*                                            *
+* Description:                               *
+* Calls mode function based on mode input    *
+**********************************************/
+void LcdScreen::sendNewMode(
+  InputMode_E newMode, 
+  float setPoint, 
+  TScale_E scale)
 {
   switch(newMode)
   {
@@ -75,7 +113,16 @@ void LcdScreen::sendNewMode(InputMode_E newMode, float setPoint, TScale_E scale)
   }
 }
 
-void LcdScreen::sendSetPoint(const float setPoint, const TScale_E scale)
+/*********************************************
+* Function: sendSetPoint                     *
+*                                            *
+* Description:                               *
+* Formats setpoint output for LCD screen     *
+* based on input temperature and scale       *
+**********************************************/
+void LcdScreen::sendSetPoint(
+  const float setPoint, 
+  const TScale_E scale)
 {
   mtx.lock();
   std::string strbuf;
@@ -87,17 +134,20 @@ void LcdScreen::sendSetPoint(const float setPoint, const TScale_E scale)
       strbuf += "C";
       break;
     case FARENHEIT:
-      strbuf += std::to_string(32.000 + setPoint * 9.000 / 5.000);
+      strbuf += std::to_string(
+        32.000 + setPoint * 9.000 / 5.000);
       strbuf.erase(strbuf.find('.',0) + 4);
       strbuf += "F";
       break;
     case KELVIN:
-      strbuf += std::to_string(setPoint + 273.150);
+      strbuf += std::to_string(
+        setPoint + 273.150);
       strbuf.erase(strbuf.find('.',0) + 4);
       strbuf += "K";
       break;
     case RANKINE:
-      strbuf += std::to_string((setPoint + 273.150) * 9.000 / 5.000);
+      strbuf += std::to_string(
+        (setPoint + 273.150) * 9.000 / 5.000);
       strbuf.erase(strbuf.find('.',0) + 4);
       strbuf += "R";
       break;
