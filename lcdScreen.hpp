@@ -73,6 +73,22 @@ class LcdScreen
     const float setPoint, 
     const TScale_E scale);
   
+  /*********************************************
+  * Function: sendLoadProfile                  *
+  *                                            *
+  * Description:                               *
+  * Formats load profile output for LCD screen *
+  **********************************************/
+  void sendLoadProfile();
+  
+  /*********************************************
+  * Function: sendPidTune                      *
+  *                                            *
+  * Description:                               *
+  * Formats PID tuning output for LCD screen   *
+  **********************************************/
+  void sendPidTune();
+  
   private:
   void lcdToggleEnable(int bits);
 

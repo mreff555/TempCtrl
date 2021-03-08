@@ -104,8 +104,10 @@ void LcdScreen::sendNewMode(
       sendSetPoint(setPoint, scale);
       break; 
     case LOAD_PROFILE:
+      sendLoadProfile();
       break;
     case PID_TUNE:
+      sendPidTune();
       break;
     default:
       /* Unspecified mode */
@@ -155,6 +157,36 @@ void LcdScreen::sendSetPoint(
   lcdLoc(LINE2);
   typeLn("SetPt: ");
   typeLn(strbuf.c_str());
+  mtx.unlock();
+}
+
+/*********************************************
+* Function: sendLoadProfile                  *
+*                                            *
+* Description:                               *
+* Formats load profile output for LCD screen *
+**********************************************/
+void LcdScreen::sendLoadProfile()
+{
+  mtx.lock();
+  lcdLoc(LINE2);
+  typeLn("Profile: ");
+  /* Write me!! */
+  mtx.unlock();
+}
+
+/*********************************************
+* Function: sendPidTune                      *
+*                                            *
+* Description:                               *
+* Formats PID tuning output for LCD screen   *
+**********************************************/
+void LcdScreen::sendPidTune()
+{
+  mtx.lock();
+  lcdLoc(LINE2);
+  typeLn("PID Tune? ");
+  /* Write me!! */
   mtx.unlock();
 }
 
