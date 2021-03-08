@@ -7,19 +7,25 @@
 #include <memory>
 #include <chrono>
 #include <thread>
+#include <stdio.h>
 
 /* Terminate processing flag */
 bool terminate = false;
   
 void sigHandler(int signum)
 {
-  terminate = true; 
+  terminate = true;
+  printf("Terminated on sig %d\n", signum); 
 }
 
 int main()
 {
-  /* Signal traps for various inturrupts */
-  signal(SIGINT, sigHandler); /* Ctrl + C */
+  /* Signal traps for various inturrupts       */
+  signal(SIGINT, sigHandler);  /* Ctrl + C     */
+  signal(SIGQUIT, sigHandler); /* Ctrl + D     */
+  signal(SIGHUP, sigHandler);  /* On pty close */
+  signal(SIGTERM, sigHandler); /* On term sig  */
+
 
   ButtonManager *buttonManager = new ButtonManager;
   LcdScreen *lcdScreen = new LcdScreen();

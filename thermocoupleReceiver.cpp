@@ -62,15 +62,9 @@ uint8_t ThermocoupleReceiver::init()
 void ThermocoupleReceiver::startEventLoop(bool &terminate)
 {
   getTemp(0);
-  // printTemp(tempScaleVal);
   while(terminate == false)
   {
-    // static float previousTemp = tempStruct.back().temp;
-    // static float previousTemp = mDataManager.getCurrentTempStruct().temp;
     getTemp(0);
-    // if(previousTemp != tempStruct.back().temp)
-    // if(previousTemp != mDataManager.getCurrentTempStruct().temp)
-    // printTemp(tempScaleVal);
     std::this_thread::sleep_for(std::chrono::milliseconds(SCAN_RATE));
   }
 }
@@ -102,41 +96,5 @@ void ThermocoupleReceiver::getTemp(int idx)
   ts.temp = value;
   ts.id = slavesArr[idx];
   ts.ts = time(NULL);
-  // tempStruct.push_back(ts);
   mDataManager.setCurrentTempStruct(ts);
 }
-
-// void ThermocoupleReceiver::setTempScale(TScale_E scale)
-// {
-//   if(scale > -1 && scale < MAX_VALUE_TSCALE)
-//     tempScaleVal = scale;  
-// }
-
-// void ThermocoupleReceiver::printTemp(enum TScale_E scale = CELSIUS)
-// {
-//   std::string strbuf;
-//   switch (scale)
-//   {
-//     case CELSIUS:
-//       strbuf += std::to_string(tempStruct.back().temp);
-//       strbuf.erase(strbuf.find('.',0) + 4);
-//       strbuf += "C";
-//       break;
-//     case FARENHEIT:
-//       strbuf += std::to_string(32.000 + tempStruct.back().temp * 9.000 / 5.000);
-//       strbuf.erase(strbuf.find('.',0) + 4);
-//       strbuf += "F";
-//       break;
-//     case KELVIN:
-//       strbuf += std::to_string(tempStruct.back().temp + 273.150);
-//       strbuf.erase(strbuf.find('.',0) + 4);
-//       strbuf += "K";
-//       break;
-//     case RANKINE:
-//       strbuf += std::to_string((tempStruct.back().temp + 273.150) * 9.000 / 5.000);
-//       strbuf.erase(strbuf.find('.',0) + 4);
-//       strbuf += "R";
-//       break;
-//   }
-//   mDataManager.sendTempToLcd(strbuf.c_str());
-// }

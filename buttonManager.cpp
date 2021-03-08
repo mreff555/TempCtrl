@@ -113,11 +113,11 @@ void ButtonManager::startEventLoop(bool &terminate)
           printf("%u Button state changed to Hold\n", tempGpio);
         }
       }
-      else if(buttonArr[tempGpio].getState() == LONG_HOLD && newButtonValue == 0) // change to falling edge
+      else if(buttonArr[tempGpio].getState() == LONG_HOLD && newButtonValue == 0) // return to default state
       {
-        buttonArr[tempGpio].update(FALLING_EDGE);
+        buttonArr[tempGpio].update(DEFAULT_STATE);
         holdTime = 0;
-        printf("Button state changed to Falling\n");
+        printf("Button state changed to Default state\n");
       }
       else if(buttonArr[tempGpio].getState() == LONG_HOLD && newButtonValue == 1) // increment hold timer
       {
