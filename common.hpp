@@ -10,6 +10,15 @@
 class Bitfield;
 class ButtonSubscriber_I;
 
+// Current offsets are ONLY for the RPI 4.  We are making use of
+// the /dev/gpiomem device so that programs do not have to be invoked
+// with sudo.  For that reason the offset for the gpio from the mapped
+// location will be 0x0.  The only reason we need the GPIO_BASE macro
+// is to calculate offsets within the GPIO memory range.
+
+#define BCM2835_PERI_BASE 0x20000000   // RPI 1
+#define BCM2708_PERI_BASE 0x3f000000   // RPI 2 + 3
+#define BCM2711_PERI_BASE 0x7e200000   // RPI 4
 #define GPIO_MAX    53
 #define BLOCK_SIZE  (4*1024)
 
