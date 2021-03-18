@@ -65,6 +65,12 @@ enum ButtonState
   FALLING_EDGE
 };
 
+enum EquipmentState
+{
+  DISABLED,
+  ENABLED
+};
+
 /***********************************************
 *  A structure for holding a single data point *
 *  of temperature in degrees celsius, as well  *
