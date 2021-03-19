@@ -41,56 +41,77 @@ void PwmController::disable()
 
 void PwmController::operator!()
 {
-
+  pwmState = DISABLED;
 }
 
 void PwmController::operator++()
 {
-
+  if(intensity < 100) 
+  { 
+    ++intensity; 
+  }
 }
 
 void PwmController::operator+=(const uint8_t value)
 {
-
+  if(intensity + value <= 100) 
+  { 
+    intensity += value; 
+  }
 }
 
 void PwmController::operator--()
 {
-
+  if(intensity > 0)
+  {
+    --intensity;
+  }
 }
 
 void PwmController::operator-=(const uint8_t value)
 {
-
+  if(intensity > 0)
+  {
+    intensity -= value;
+  }
 }
 
 void PwmController::setIntensity(const uint8_t value)
 {
-
+  if(value <= 100 && value >=0)
+  {
+    intensity = value;
+  }
 }
 
 uint8_t PwmController::getIntensity() const
 {
-  return 0;
+  return intensity;
 }
 
 void PwmController::setFrequency(const uint32_t value)
 {
-
+  if(value < FREQUENCY_MAX && value > FREQUENCY_MIN)
+  {
+    frequency = value;
+  }
 }
 
 uint32_t PwmController::getFrequency() const
 {
-  return 0;
+  return frequency;
 }
 
 void PwmController::setDutyCycle(const uint8_t value)
 {
-
+  if(value < DUTY_CYCLE_MAX && value > DUTY_CYCLE_MIN)
+  {
+    dutyCycle = value;
+  }
 }
 
 uint8_t PwmController::getDutyCycle() const
 {
-  return 0;
+  return dutyCycle;
 }
 

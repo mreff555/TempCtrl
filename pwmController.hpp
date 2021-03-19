@@ -4,6 +4,12 @@
 #include "common.hpp"
 #include <cstdint>
 
+// TODO: FIX THEESE
+#define FREQUENCY_MAX 12345
+#define FREQUENCY_MIN 0
+#define DUTY_CYCLE_MAX 100
+#define DUTY_CYCLE_MIN 0
+
 class PwmController
 {
   public:
