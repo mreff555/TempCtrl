@@ -96,7 +96,7 @@ class LcdScreen
   
   void clrLcd(void);
 
-  void lcdInit(void);
+  bool lcdInit(void);
 
   void lcdLoc(int line);
 

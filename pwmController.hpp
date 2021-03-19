@@ -2,7 +2,13 @@
 #define PWMCONTROLLER_HPP
 
 #include "common.hpp"
+#include <wiringPi.h>
+#include <softPwm.h>
 #include <cstdint>
+
+#define PWM_PIN0 13
+#define PWM_INITIAL_VALUE 3
+#define PWM_PIN0_RANGE 100
 
 // TODO: FIX THEESE
 #define FREQUENCY_MAX 12345

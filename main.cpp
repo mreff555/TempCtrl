@@ -27,6 +27,9 @@ int main()
   signal(SIGHUP, sigHandler);  /* On pty close */
   signal(SIGTERM, sigHandler); /* On term sig  */
 
+  /* Since multiple threads currently need     */
+  /* Wiring Pi to initialize, we call it here. */
+  if(wiringPiSetup() == -1) exit(1);
 
   ButtonManager *buttonManager = new ButtonManager;
   LcdScreen *lcdScreen = new LcdScreen();

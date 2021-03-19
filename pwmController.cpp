@@ -16,11 +16,18 @@ PwmController::~PwmController()
 bool PwmController::init()
 {
   bool success = false;
-  pwmState = DISABLED;
-  dutyCycle = 0;
-  frequency = 0;
-  intensity = 0;
-  success = true;
+  if(!softPwmCreate(
+    PWM_PIN0, 
+    PWM_INITIAL_VALUE, 
+    PWM_PIN0_RANGE))
+  {
+    pwmState = DISABLED;
+    dutyCycle = 0;
+    frequency = 0;
+    intensity = 0;
+    softPwmWrite(PWM_PIN0, intensity); 
+    success = true;
+  }
   return success;
 }
 
@@ -49,6 +56,7 @@ void PwmController::operator++()
   if(intensity < 100) 
   { 
     ++intensity; 
+    softPwmWrite(PWM_PIN0, intensity); 
   }
 }
 
@@ -57,6 +65,7 @@ void PwmController::operator+=(const uint8_t value)
   if(intensity + value <= 100) 
   { 
     intensity += value; 
+    softPwmWrite(PWM_PIN0, intensity); 
   }
 }
 
@@ -65,6 +74,7 @@ void PwmController::operator--()
   if(intensity > 0)
   {
     --intensity;
+    softPwmWrite(PWM_PIN0, intensity); 
   }
 }
 
@@ -73,6 +83,7 @@ void PwmController::operator-=(const uint8_t value)
   if(intensity > 0)
   {
     intensity -= value;
+    softPwmWrite(PWM_PIN0, intensity); 
   }
 }
 
@@ -81,6 +92,7 @@ void PwmController::setIntensity(const uint8_t value)
   if(value <= 100 && value >=0)
   {
     intensity = value;
+    softPwmWrite(PWM_PIN0, intensity); 
   }
 }
 
