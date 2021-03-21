@@ -1,6 +1,6 @@
 #include "lcdScreen.hpp"
 #include <cstdlib>
-#include <iostream>
+#include <cstdio>
 #include <string>
 
 /*********************************************
@@ -15,9 +15,8 @@
 **********************************************/
 LcdScreen::LcdScreen() 
 {
-  if(wiringPiSetup() == -1) exit(1);
   fd = wiringPiI2CSetup(I2C_ADDR);
-  lcdInit();
+  printf("Initializing Lcd Screen Controller: %s\n", lcdInit() ? "PASS" : "FAIL");
 }
 
 LcdScreen::~LcdScreen()
@@ -221,8 +220,9 @@ void LcdScreen::lcdByte(int bits, int mode)
   lcdToggleEnable(bits_low);
 }
 
-void LcdScreen::lcdInit()
+bool LcdScreen::lcdInit()
 {
+  bool success = false;
   // Initialise display
   lcdByte(0x33, LCD_CMD); // Initialise
   lcdByte(0x32, LCD_CMD); // Initialise
@@ -231,6 +231,8 @@ void LcdScreen::lcdInit()
   lcdByte(0x28, LCD_CMD); // Data length, number of lines, font size
   lcdByte(0x01, LCD_CMD); // Clear display
   delayMicroseconds(500);
+  success = true;
+  return success;
 }
 
 // go to location on LCD
