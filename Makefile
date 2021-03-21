@@ -1,25 +1,72 @@
-CC = /usr/bin/g++
-SRC = *.cpp
-OBJ = $(SRC:.cpp=.o)
-CFLAGS = -std=c++11 -g
+# Giving credit where credit is due.  I hate writing make files, so I just found
+# this one and tweaked it.  See here for the maintained source tree.
+# https://github.com/TheNetAdmin/Makefile-Templates/blob/master/SmallProject/Example/Makefile 
 
-# This flag is being passed to silence a note during compilation, indicating changes in the design of std::list.
-# Essentually, if you have errors compiling, you may need to rebuild your c++ libraries.
-CFLAGS += -Wno-psabi
+# tool macros
+CC := g++
+CCFLAGS := -Wno-psabi -lwiringPi -lpthread
+DBGFLAGS := -g
+CCOBJFLAGS := $(CCFLAGS) -c
 
-# Currently this is the only non-gnu dependancey.  It is also depriciated, I would prefer to get rid of it
-# however I was not able to find good documentation for the I2C 1602 LCD screen
-LDFLAGS = -lwiringPi -lpthread
-EXE=tempctrl
+# path macros
+BIN_PATH := bin
+OBJ_PATH := obj
+SRC_PATH := src
+DBG_PATH := debug
 
-all: $(SRC) $(EXE)
+# compile macros
+TARGET_NAME := tempctrl 
+ifeq ($(OS),Windows_NT)
+	TARGET_NAME := $(addsuffix .exe,$(TARGET_NAME))
+endif
+TARGET := $(BIN_PATH)/$(TARGET_NAME)
+TARGET_DEBUG := $(DBG_PATH)/$(TARGET_NAME)
 
-$(EXE): $(OBJ)
-	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+# src files & obj files
+SRC := $(foreach x, $(SRC_PATH), $(wildcard $(addprefix $(x)/*,.c*)))
+OBJ := $(addprefix $(OBJ_PATH)/, $(addsuffix .o, $(notdir $(basename $(SRC)))))
+OBJ_DEBUG := $(addprefix $(DBG_PATH)/, $(addsuffix .o, $(notdir $(basename $(SRC)))))
 
-$(OBJ): $(SRC)
-	$(CC) $(CFLAGS) -c $^
+# clean files list
+DISTCLEAN_LIST := $(OBJ) \
+                  $(OBJ_DEBUG)
+CLEAN_LIST := $(TARGET) \
+			  $(TARGET_DEBUG) \
+			  $(DISTCLEAN_LIST)
+
+# default rule
+default: makedir all
+
+# non-phony targets
+$(TARGET): $(OBJ)
+	$(CC) $(CCFLAGS) -o $@ $(OBJ)
+
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c*
+	$(CC) $(CCOBJFLAGS) -o $@ $<
+
+$(DBG_PATH)/%.o: $(SRC_PATH)/%.c*
+	$(CC) $(CCOBJFLAGS) $(DBGFLAGS) -o $@ $<
+
+$(TARGET_DEBUG): $(OBJ_DEBUG)
+	$(CC) $(CCFLAGS) $(DBGFLAGS) $(OBJ_DEBUG) -o $@
+
+# phony rules
+.PHONY: makedir
+makedir:
+	@mkdir -p $(BIN_PATH) $(OBJ_PATH) $(DBG_PATH)
+
+.PHONY: all
+all: $(TARGET)
+
+.PHONY: debug
+debug: $(TARGET_DEBUG)
 
 .PHONY: clean
 clean:
-	rm $(OBJ)
+	@echo CLEAN $(CLEAN_LIST)
+	@rm -f $(CLEAN_LIST)
+
+.PHONY: distclean
+distclean:
+	@echo CLEAN $(CLEAN_LIST)
+	@rm -f $(DISTCLEAN_LIST)
