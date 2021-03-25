@@ -98,6 +98,7 @@ enum TScale_E
 enum InputMode_E
 {
   SETPOINT,
+  SET_SCALE,
   LOAD_PROFILE,
   PID_TUNE,
   INPUT_MODE_MAX_VALUE
