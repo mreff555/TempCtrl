@@ -41,7 +41,6 @@ class ButtonManager : public ButtonPublisher_I
   size_t buttonCount;
   
   SubscriberList subscriberList;
-
   
 };
 

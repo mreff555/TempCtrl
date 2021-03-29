@@ -66,7 +66,7 @@ void ButtonManager::startEventLoop(bool &terminate)
 {
   uint8_t tempGpio = 0;
   int newButtonValue = -1;
-  time_t holdTime = 0;
+  time_t holdTime[GPIO_MAX];
 
   while(terminate == false)
   {
@@ -101,13 +101,13 @@ void ButtonManager::startEventLoop(bool &terminate)
       else if(buttonArr[tempGpio].getState() == RISING_EDGE && newButtonValue == 0) // change to falling
       {
         buttonArr[tempGpio].update(FALLING_EDGE);
-        holdTime = 0;
-        printf("Button state changed to Falling\n");
+        holdTime[tempGpio] = 0;
+        printf("%u Button state changed to Falling\n", tempGpio);
       }
       else if(buttonArr[tempGpio].getState() == RISING_EDGE && newButtonValue == 1) // hold timer
       {
-        holdTime += (time(NULL) - buttonArr[tempGpio].getTimeStamp());
-        if(holdTime >= MIN_BUTTON_HOLD_TIME)
+        holdTime[tempGpio] += (time(NULL) - buttonArr[tempGpio].getTimeStamp());
+        if(holdTime[tempGpio] >= MIN_BUTTON_HOLD_TIME)
         {
           buttonArr[tempGpio].update(LONG_HOLD);
           printf("%u Button state changed to Hold\n", tempGpio);
@@ -116,12 +116,12 @@ void ButtonManager::startEventLoop(bool &terminate)
       else if(buttonArr[tempGpio].getState() == LONG_HOLD && newButtonValue == 0) // return to default state
       {
         buttonArr[tempGpio].update(DEFAULT_STATE);
-        holdTime = 0;
-        printf("Button state changed to Default state\n");
+        holdTime[tempGpio] = 0;
+        printf("%u Button state changed to Default state\n", tempGpio);
       }
       else if(buttonArr[tempGpio].getState() == LONG_HOLD && newButtonValue == 1) // increment hold timer
       {
-        holdTime += (time(NULL) - buttonArr[tempGpio].getTimeStamp());
+        holdTime[tempGpio] += (time(NULL) - buttonArr[tempGpio].getTimeStamp());
         /* No logic needed here unless we want to add multiple levels of */
         /* hold time sensitivity.                                        */
       }

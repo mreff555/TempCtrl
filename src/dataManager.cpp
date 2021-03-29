@@ -63,7 +63,31 @@ void DataManager::startEventLoop(
           nextInputMode();
         }
         /* Up button */
-        if(0 /* registeredButton[i].getGpio() == ?? */) {}
+        if(registeredButton[i].getGpio() == 27) 
+        {
+          registeredButton[i] << lastState[i];
+          switch(mInputMode)
+          {
+            case SETPOINT:
+            {
+              // float tempSp = getSetPoint();
+              // if (tempSp < TEMP_MAX_SP)
+              // {
+              //   setSetPoint(tempSp + 0.5);
+              // } 
+              break;
+            }
+
+            case SET_SCALE:
+              break;  
+            
+            case LOAD_PROFILE:
+              break;
+
+            case PID_TUNE:
+              break;
+          }
+        }
         /* Down button */
         if(0 /* registeredButton[i].getGpio() == ?? */) {}
         /* Back button */
@@ -106,15 +130,19 @@ bool DataManager::init()
 {
   bool success = false;
 
+  // TODO: I may want to consolidate these actions
+  // into a single function.  I guess I'll wait until
+  // all of the buttons are working to decide
+  //
   /* Menu Button Registration */
   registeredButton.push_back(Button(26));
   mButtonManager.addButton(registeredButton.back());
   subscribe(registeredButton.back().getGpio());
 
-  // /* Up Button Registration */
-  // registeredButton.push_back(Button(17));
-  // mButtonManager.addButton(registeredButton.back());
-  // subscribe(registeredButton.back().getGpio());
+  /* Up Button Registration */
+  registeredButton.push_back(Button(27));
+  mButtonManager.addButton(registeredButton.back());
+  subscribe(registeredButton.back().getGpio());
 
   // /* Down Button Registration*/
   // registeredButton.push_back(Button(27));
