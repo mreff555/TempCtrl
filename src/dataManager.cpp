@@ -63,18 +63,18 @@ void DataManager::startEventLoop(
           nextInputMode();
         }
         /* Up button */
-        if(registeredButton[i].getGpio() == 27) 
+        if(registeredButton[i].getGpio() == 17) 
         {
           registeredButton[i] << lastState[i];
           switch(mInputMode)
           {
             case SETPOINT:
             {
-              // float tempSp = getSetPoint();
-              // if (tempSp < TEMP_MAX_SP)
-              // {
-              //   setSetPoint(tempSp + 0.5);
-              // } 
+              float tempSp = getSetPoint();
+              if (tempSp < TEMP_MAX_SP)
+              {
+                setSetPoint(tempSp + 0.5);
+              } 
               break;
             }
 
@@ -140,7 +140,7 @@ bool DataManager::init()
   subscribe(registeredButton.back().getGpio());
 
   /* Up Button Registration */
-  registeredButton.push_back(Button(27));
+  registeredButton.push_back(Button(17));
   mButtonManager.addButton(registeredButton.back());
   subscribe(registeredButton.back().getGpio());
 
@@ -243,4 +243,5 @@ float DataManager::getSetPoint() const
 void DataManager::setSetPoint(const float sp)
 {
   setPoint = sp;
+  mLcdScreen.sendSetPoint(setPoint, mTempScale);
 }
