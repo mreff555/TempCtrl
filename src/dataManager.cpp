@@ -79,6 +79,7 @@ void DataManager::startEventLoop(
             }
 
             case SET_SCALE:
+              nextTempScale();
               break;  
             
             case LOAD_PROFILE:

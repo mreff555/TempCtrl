@@ -153,6 +153,7 @@ void LcdScreen::sendSetPoint(
       strbuf += "R";
       break;
   }
+  lcdByte(0x02, LCD_CMD);
   lcdLoc(LINE2);
   typeLn("SetPt: ");
   typeLn(strbuf.c_str());
@@ -183,6 +184,9 @@ void LcdScreen::sendLoadProfile()
 void LcdScreen::sendPidTune()
 {
   mtx.lock();
+  //lcdByte(0x02, LCD_CMD);
+  lcdLoc(LINE2);
+  typeLn("                ");
   lcdLoc(LINE2);
   typeLn("PID Tune? ");
   /* Write me!! */
