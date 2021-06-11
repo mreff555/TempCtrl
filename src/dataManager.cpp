@@ -130,30 +130,41 @@ bool DataManager::init()
 {
   bool success = false;
 
+  // This is where buttons are any buttons are registered
   // TODO: I may want to consolidate these actions
   // into a single function.  I guess I'll wait until
   // all of the buttons are working to decide
   //
   /* Menu Button Registration */
-  registeredButton.push_back(Button(26));
-  mButtonManager.addButton(registeredButton.back());
-  subscribe(registeredButton.back().getGpio());
+  registeredButton.push_back(Button(26));                // Create a button object, gpio 26
+  mButtonManager.addButton(registeredButton.back());     // Add the button to the button manager
+  subscribe(registeredButton.back().getGpio());          // Subscribe to button updates
 
   /* Up Button Registration */
   registeredButton.push_back(Button(27));
   mButtonManager.addButton(registeredButton.back());
   subscribe(registeredButton.back().getGpio());
 
-  // /* Down Button Registration*/
-  // registeredButton.push_back(Button(27));
-  // mButtonManager.addButton(registeredButton.back());
-  // subscribe(registeredButton.back().getGpio());
+  /* Down Button Registration*/
+  registeredButton.push_back(Button(17));
+  mButtonManager.addButton(registeredButton.back());
+  subscribe(registeredButton.back().getGpio());
 
-  // /* Back Button Registration*/
-  // registeredButton.push_back(Button(22));
-  // mButtonManager.addButton(registeredButton.back());
-  // subscribe(registeredButton.back().getGpio());
+  /* Back Button Registration*/
+  registeredButton.push_back(Button(19));
+  mButtonManager.addButton(registeredButton.back());
+  subscribe(registeredButton.back().getGpio());
 
+  
+  // If at least one temperature value has been
+  // received and recorded set the initial setpoint
+  // to that value.  Otherwise use the default
+  // value.
+  // TODO:  This needs to be watched.  There was an
+  // intermitant failure which I did not debug, before
+  // the problem "went away" but it appears that calling
+  // the size method when the vector is empty generates
+  // an error.
   if(mTempStructList.size() > 0)
   {
     setPoint = mTempStructList.back().temp;
@@ -225,6 +236,8 @@ void DataManager::setInputMode(const InputMode_E inputMode)
   mInputMode = inputMode;
 }
 
+// TODO: This is ugly with all the casts.  I'd like a 
+// more clean way to do it.
 void DataManager::nextInputMode()
 {
   int temp;

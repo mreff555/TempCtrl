@@ -80,7 +80,7 @@ void LcdScreen::sendTemp(
       strbuf += "R";
       break;
   }
-  lcdLoc(LINE1);
+  lcdLoc(LCD_LINE1);
   typeLn("Temp: ");
   typeLn(strbuf.c_str());
   mtx.unlock();
@@ -102,6 +102,9 @@ void LcdScreen::sendNewMode(
     case SETPOINT:
       sendSetPoint(setPoint, scale);
       break; 
+    case SET_SCALE:
+      sendScale(scale);
+      break;
     case LOAD_PROFILE:
       sendLoadProfile();
       break;
@@ -127,7 +130,7 @@ void LcdScreen::sendSetPoint(
 {
   mtx.lock();
   std::string strbuf;
-  switch (scale)
+  switch(scale)
   {
     case CELSIUS:
       strbuf += std::to_string(setPoint);
@@ -153,8 +156,44 @@ void LcdScreen::sendSetPoint(
       strbuf += "R";
       break;
   }
-  lcdLoc(LINE2);
+  lcdLoc(LCD_LINE2);
   typeLn("SetPt: ");
+  typeLn(strbuf.c_str());
+  mtx.unlock();
+}
+
+/*********************************************
+* Function: sendScale                        *
+*                                            *
+* Description:                               *
+* Formats scale output for LCD screen        *
+**********************************************/
+void LcdScreen::sendScale(
+  const TScale_E scale)
+{
+  mtx.lock();
+  std::string strbuf;
+  switch(scale)
+  {
+    case CELSIUS:
+      strbuf = "Celsius";
+      break;
+
+    case FARENHEIT:
+      strbuf = "Farenheit";
+      break;
+
+    case KELVIN:
+      strbuf = "Kelvin";
+      break;
+
+    case RANKINE:
+      strbuf = "Rankine";
+      break;
+
+  }
+  lcdLoc(LCD_LINE2);
+  typeLn("Scale: ");
   typeLn(strbuf.c_str());
   mtx.unlock();
 }
@@ -168,7 +207,7 @@ void LcdScreen::sendSetPoint(
 void LcdScreen::sendLoadProfile()
 {
   mtx.lock();
-  lcdLoc(LINE2);
+  lcdLoc(LCD_LINE2);
   typeLn("Profile: ");
   /* Write me!! */
   mtx.unlock();
@@ -183,7 +222,7 @@ void LcdScreen::sendLoadProfile()
 void LcdScreen::sendPidTune()
 {
   mtx.lock();
-  lcdLoc(LINE2);
+  lcdLoc(LCD_LINE2);
   typeLn("PID Tune? ");
   /* Write me!! */
   mtx.unlock();
@@ -226,10 +265,10 @@ bool LcdScreen::lcdInit()
   // Initialise display
   lcdByte(0x33, LCD_CMD); // Initialise
   lcdByte(0x32, LCD_CMD); // Initialise
-  lcdByte(0x06, LCD_CMD); // Cursor move direction
-  lcdByte(0x0C, LCD_CMD); // 0x0F On, Blink Off
-  lcdByte(0x28, LCD_CMD); // Data length, number of lines, font size
-  lcdByte(0x01, LCD_CMD); // Clear display
+  lcdByte(LCD_CUR_INC, LCD_CMD); // Cursor move direction
+  lcdByte(LCD_DISP_ON_CUR_OFF, LCD_CMD); // 0x0F On, Blink Off
+  lcdByte(LCD_4BIT, LCD_CMD); // Data length, number of lines, font size
+  lcdByte(LCD_CLEAR, LCD_CMD); // Clear display
   delayMicroseconds(500);
   success = true;
   return success;

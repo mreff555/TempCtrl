@@ -36,7 +36,7 @@ int main()
   DataManager *dataManager = new DataManager(*buttonManager, *lcdScreen);
   ThermocoupleReceiver *thermocoupleReceiver = new ThermocoupleReceiver(*dataManager);
   ButtonSubscriber *subscriber = new ButtonSubscriber(*buttonManager);
-  PwmController *pwmController = new PwmController();
+  // PwmController *pwmController = new PwmController();
     
   /* Start event loops */
   std::thread buttonManagerThread(
@@ -45,18 +45,18 @@ int main()
     &DataManager::startEventLoop, dataManager, std::ref(terminate));
   std::thread thermocoupleThread(
     &ThermocoupleReceiver::startEventLoop, thermocoupleReceiver, std::ref(terminate));
-  std::thread pwmControllerThread(
-    &PwmController::startEventLoop, pwmController, std::ref(terminate));  
+  // std::thread pwmControllerThread(
+  //   &PwmController::startEventLoop, pwmController, std::ref(terminate));  
 
   buttonManagerThread.join();
   dataManagerThread.join();
   thermocoupleThread.join();
-  pwmControllerThread.join();
+  // pwmControllerThread.join();
 
   delete lcdScreen;
   delete subscriber;
   delete thermocoupleReceiver;
   delete dataManager;
   delete buttonManager;
-  delete pwmController;
+  // delete pwmController;
 }

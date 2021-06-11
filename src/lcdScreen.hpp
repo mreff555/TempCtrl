@@ -9,10 +9,18 @@
 #define I2C_ADDR   0x27 // I2C device address
 #define LCD_CHR  1 // Mode - Sending data
 #define LCD_CMD  0 // Mode - Sending command
-#define LINE1  0x80 // 1st line
-#define LINE2  0xC0 // 2nd line
+
+// Commands
+#define LCD_CLEAR 0x01
+#define LCD_CUR_DEC 0x04
+#define LCD_CUR_INC 0x06
+#define LCD_LINE1  0x80 // 1st line
+#define LCD_LINE2  0xC0 // 2nd line
+#define LCD_DISP_ON_CUR_OFF 0x0C
 #define LCD_BACKLIGHT_ON   0x08  
 #define LCD_BACKLIGHT_OFF  0x00  
+#define LCD_4BIT 0x28
+#define LCD_8BIT 0x38
 #define ENABLE  0b00000100 // Enable bit
 
 /*********************************************
@@ -71,6 +79,15 @@ class LcdScreen
   **********************************************/
   void sendSetPoint(
     const float setPoint, 
+    const TScale_E scale);
+  
+  /*********************************************
+  * Function: sendScale                        *
+  *                                            *
+  * Description:                               *
+  * Formats scale output for LCD screen        *
+  **********************************************/
+  void sendScale(
     const TScale_E scale);
   
   /*********************************************
