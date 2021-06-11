@@ -232,11 +232,11 @@ void LcdScreen::sendPidTune()
 void LcdScreen::lcdToggleEnable(int bits)
 {
   // Toggle enable pin on LCD display
-  delayMicroseconds(500);
+  delayMicroseconds(LCD_DELAY);
   wiringPiI2CReadReg8(fd, (bits | ENABLE));
-  delayMicroseconds(500);
+  delayMicroseconds(LCD_DELAY);
   wiringPiI2CReadReg8(fd, (bits & ~ENABLE));
-  delayMicroseconds(500);
+  delayMicroseconds(LCD_DELAY);
 }
 
 void LcdScreen::lcdByte(int bits, int mode)
@@ -269,7 +269,7 @@ bool LcdScreen::lcdInit()
   lcdByte(LCD_DISP_ON_CUR_OFF, LCD_CMD); // 0x0F On, Blink Off
   lcdByte(LCD_4BIT, LCD_CMD); // Data length, number of lines, font size
   lcdByte(LCD_CLEAR, LCD_CMD); // Clear display
-  delayMicroseconds(500);
+  delayMicroseconds(LCD_DELAY);
   success = true;
   return success;
 }
