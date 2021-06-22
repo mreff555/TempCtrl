@@ -32,7 +32,7 @@ class ButtonSubscriber_I;
 
 // This is the minimum time a button must be held to handle the interaction
 // as a held button.
-#define MIN_BUTTON_HOLD_TIME    500  // milliseconds
+#define MIN_BUTTON_HOLD_TIME    200  // milliseconds
 
 // This is the buffer size for historical temperature data.
 #define TEMP_HISTORY_SIZE 50
