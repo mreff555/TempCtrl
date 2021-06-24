@@ -157,6 +157,8 @@ void LcdScreen::sendSetPoint(
       break;
   }
   lcdLoc(LCD_LINE2);
+  typeLn("                ");
+  lcdLoc(LCD_LINE2);
   typeLn("SetPt: ");
   typeLn(strbuf.c_str());
   mtx.unlock();
@@ -193,6 +195,8 @@ void LcdScreen::sendScale(
 
   }
   lcdLoc(LCD_LINE2);
+  typeLn("                ");
+  lcdLoc(LCD_LINE2);
   typeLn("Scale: ");
   typeLn(strbuf.c_str());
   mtx.unlock();
@@ -208,6 +212,8 @@ void LcdScreen::sendLoadProfile()
 {
   mtx.lock();
   lcdLoc(LCD_LINE2);
+  typeLn("                ");
+  lcdLoc(LCD_LINE2);
   typeLn("Profile: ");
   /* Write me!! */
   mtx.unlock();
@@ -222,6 +228,8 @@ void LcdScreen::sendLoadProfile()
 void LcdScreen::sendPidTune()
 {
   mtx.lock();
+  lcdLoc(LCD_LINE2);
+  typeLn("                ");
   lcdLoc(LCD_LINE2);
   typeLn("PID Tune? ");
   /* Write me!! */
