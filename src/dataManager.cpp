@@ -36,9 +36,16 @@ void DataManager::startEventLoop(
   bool &terminate)
 {
   float previousTemp = 0;
-  mLcdScreen.sendTemp(
-    mTempStructList.back().temp, 
-    mTempScale);
+  if(mTempStructList.back().temp)
+  {
+    mLcdScreen.sendTemp(
+      mTempStructList.back().temp, mTempScale);
+  }
+  else
+  {
+    mLcdScreen.sendTemp(888, mTempScale);
+  }
+
   std::vector<Button> lastState(
     registeredButton);
   while(terminate == false)

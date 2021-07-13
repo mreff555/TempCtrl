@@ -80,6 +80,9 @@ void LcdScreen::sendTemp(
       strbuf += "R";
       break;
   }
+
+  lcdLoc(LCD_LINE1);
+  typeLn("                ");
   lcdLoc(LCD_LINE1);
   typeLn("Temp: ");
   typeLn(strbuf.c_str());
