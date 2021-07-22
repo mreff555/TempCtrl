@@ -36,6 +36,12 @@ void DataManager::startEventLoop(
   bool &terminate)
 {
   float previousTemp = 0;
+  
+  // Sets the default starting temp to the last value in the
+  // temperature history.  If there is not values in the history,
+  // a case which should only happen if this logic runs before the
+  // thermocouple is able to return a value, send the value
+  // 888 to indicate an error.
   if(mTempStructList.back().temp)
   {
     mLcdScreen.sendTemp(
@@ -45,19 +51,20 @@ void DataManager::startEventLoop(
   {
     mLcdScreen.sendTemp(888, mTempScale);
   }
-
-  std::vector<Button> lastState(
-    registeredButton);
+  std::vector<Button> lastState(registeredButton);
   while(terminate == false)
   {
     /*****************************************
     * The conditions in this for loop make   *
     * up the general behavior of the         *
-    * buttons. One-off behavior can be       *
-    * implemented elsewhere.                 *
+    * buttons by iterating through each one  *
+    * and checking its current run state.    *
+    * one-off behavior can be implemented    *
+    * elsewhere.                             *
     *****************************************/
     for(int i = 0; i < registeredButton.size(); ++i)
     {
+      /* On falling edge */
       if(lastState[i].getState() != LONG_HOLD 
         && difftime(registeredButton[i].getTimeStamp(), 
           lastState[i].getTimeStamp()) > 0.5
@@ -77,11 +84,11 @@ void DataManager::startEventLoop(
           {
             case SETPOINT:
             {
-              // float tempSp = getSetPoint();
-              // if (tempSp < TEMP_MAX_SP)
-              // {
-              //   setSetPoint(tempSp + 0.5);
-              // } 
+              float tempSp = getSetPoint();
+              if (tempSp < TEMP_MAX_SP)
+              {
+                setSetPoint(tempSp + 0.5);
+              } 
               break;
             }
 
@@ -96,9 +103,37 @@ void DataManager::startEventLoop(
           }
         }
         /* Down button */
-        if(0 /* registeredButton[i].getGpio() == ?? */) {}
+        if(registeredButton[i].getGpio() == 17)
+        {
+          registeredButton[i] << lastState[i];
+          switch(mInputMode)
+          {
+            case SETPOINT:
+            {
+              float tempSp = getSetPoint();
+              if (tempSp > TEMP_MIN_SP)
+              {
+                setSetPoint(tempSp - 0.5);
+              } 
+              break;
+            }
+
+            case SET_SCALE:
+              break;  
+            
+            case LOAD_PROFILE:
+              break;
+
+            case PID_TUNE:
+              break;
+          }
+        }
+
         /* Back button */
-        if(0 /* registeredButton[i].getGpio() == ?? */) {}
+        if(registeredButton[i].getGpio() == 19) 
+        {
+  
+        }
       }
     }
   
@@ -263,4 +298,5 @@ float DataManager::getSetPoint() const
 void DataManager::setSetPoint(const float sp)
 {
   setPoint = sp;
+  mLcdScreen.sendSetPoint(setPoint, mTempScale);
 }
