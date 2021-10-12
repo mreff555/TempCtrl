@@ -13,8 +13,8 @@
 * data.                                      *
 **********************************************/
 DataManager::DataManager(
-  ButtonManager &_buttonManager, 
-  LcdScreen &_lcdScreen) 
+  std::shared_ptr<ButtonManager> _buttonManager, 
+  std::shared_ptr<LcdScreen> _lcdScreen) 
 : mButtonManager(_buttonManager), 
 mLcdScreen(_lcdScreen)
 {
@@ -44,12 +44,12 @@ void DataManager::startEventLoop(
   // 888 to indicate an error.
   if(mTempStructList.back().temp)
   {
-    mLcdScreen.sendTemp(
+    mLcdScreen->sendTemp(
       mTempStructList.back().temp, mTempScale);
   }
   else
   {
-    mLcdScreen.sendTemp(888, mTempScale);
+    mLcdScreen->sendTemp(888, mTempScale);
   }
   std::vector<Button> lastState(registeredButton);
   while(terminate == false)
@@ -139,7 +139,7 @@ void DataManager::startEventLoop(
   
     if(previousTemp != mTempStructList.back().temp)
     {
-      mLcdScreen.sendTemp(mTempStructList.back().temp, mTempScale);
+      mLcdScreen->sendTemp(mTempStructList.back().temp, mTempScale);
       previousTemp = mTempStructList.back().temp;
     }  
     std::this_thread::sleep_for(std::chrono::milliseconds(SCAN_RATE));
@@ -160,12 +160,12 @@ void DataManager::update(const Button &buttonUpdate)
 
 void DataManager::subscribe(uint8_t gpio)
 {
-  this->mButtonManager.attach(gpio, this); 
+  this->mButtonManager->attach(gpio, this); 
 }
 
 void DataManager::unsubscribe(uint8_t gpio = 0)
 {
-  this->mButtonManager.detach(gpio, this);
+  this->mButtonManager->detach(gpio, this);
 }
 
 bool DataManager::init()
@@ -179,22 +179,22 @@ bool DataManager::init()
   //
   /* Menu Button Registration */
   registeredButton.push_back(Button(26));                // Create a button object, gpio 26
-  mButtonManager.addButton(registeredButton.back());     // Add the button to the button manager
+  mButtonManager->addButton(registeredButton.back());     // Add the button to the button manager
   subscribe(registeredButton.back().getGpio());          // Subscribe to button updates
 
   /* Up Button Registration */
   registeredButton.push_back(Button(27));
-  mButtonManager.addButton(registeredButton.back());
+  mButtonManager->addButton(registeredButton.back());
   subscribe(registeredButton.back().getGpio());
 
   /* Down Button Registration*/
   registeredButton.push_back(Button(17));
-  mButtonManager.addButton(registeredButton.back());
+  mButtonManager->addButton(registeredButton.back());
   subscribe(registeredButton.back().getGpio());
 
   /* Back Button Registration*/
   registeredButton.push_back(Button(19));
-  mButtonManager.addButton(registeredButton.back());
+  mButtonManager->addButton(registeredButton.back());
   subscribe(registeredButton.back().getGpio());
 
   
@@ -286,7 +286,7 @@ void DataManager::nextInputMode()
   temp = (int)mInputMode + 1;
   if(temp >= (int)INPUT_MODE_MAX_VALUE) { temp = 0; }
   mInputMode = (InputMode_E)temp;
-  mLcdScreen.sendNewMode(mInputMode, setPoint, mTempScale);
+  mLcdScreen->sendNewMode(mInputMode, setPoint, mTempScale);
   std::cout << "InputMOde: " << (int)mInputMode << "\n";
 }
 
@@ -298,5 +298,5 @@ float DataManager::getSetPoint() const
 void DataManager::setSetPoint(const float sp)
 {
   setPoint = sp;
-  mLcdScreen.sendSetPoint(setPoint, mTempScale);
+  mLcdScreen->sendSetPoint(setPoint, mTempScale);
 }

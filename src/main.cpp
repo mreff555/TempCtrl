@@ -31,9 +31,10 @@ int main()
   /* Wiring Pi to initialize, we call it here. */
   if(wiringPiSetup() == -1) exit(1);
 
-  ButtonManager *buttonManager = new ButtonManager;
-  LcdScreen *lcdScreen = new LcdScreen();
-  DataManager *dataManager = new DataManager(*buttonManager, *lcdScreen);
+  std::shared_ptr<ButtonManager> buttonManager = std::make_shared<ButtonManager>();
+  std::shared_ptr<LcdScreen> lcdScreen = std::make_shared<LcdScreen>();
+  std::shared_ptr<DataManager> dataManager = std::make_shared<DataManager>(buttonManager, lcdScreen);
+
   ThermocoupleReceiver *thermocoupleReceiver = new ThermocoupleReceiver(*dataManager);
   ButtonSubscriber *subscriber = new ButtonSubscriber(*buttonManager);
   // PwmController *pwmController = new PwmController();
@@ -53,10 +54,7 @@ int main()
   thermocoupleThread.join();
   // pwmControllerThread.join();
 
-  delete lcdScreen;
   delete subscriber;
   delete thermocoupleReceiver;
-  delete dataManager;
-  delete buttonManager;
   // delete pwmController;
 }

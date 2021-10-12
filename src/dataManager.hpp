@@ -5,6 +5,7 @@
 #include "common.hpp"
 #include "button.hpp"
 #include <list>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -14,8 +15,8 @@ class DataManager : public ButtonSubscriber_I
 {
 public:
   DataManager(
-    ButtonManager &_buttonManager, 
-    LcdScreen &_lcdScreen);
+    std::shared_ptr<ButtonManager> _buttonManager, 
+    std::shared_ptr<LcdScreen> _lcdScreen);
 
   ~DataManager();
   
@@ -54,9 +55,9 @@ public:
   void setSetPoint(const float setPoint);
 
 private:
-  ButtonManager &mButtonManager;  
+  std::shared_ptr<ButtonManager> mButtonManager;  
 
-  LcdScreen &mLcdScreen;
+  std::shared_ptr<LcdScreen> mLcdScreen;
 
   std::list<TempStruct> mTempStructList;
 
