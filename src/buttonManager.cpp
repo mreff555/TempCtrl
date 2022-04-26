@@ -18,11 +18,6 @@ ButtonManager::ButtonManager()
   printf("Initializing Button Manager: %s\n", init() ? "PASS" : "FAIL");
 }
 
-ButtonManager::~ButtonManager()
-{
-
-}
-
 bool ButtonManager::init()
 {
   if((fd = open("/dev/gpiomem", O_RDWR | O_SYNC | O_CLOEXEC)) >= 0)

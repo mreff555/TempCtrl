@@ -75,5 +75,4 @@ class PwmController
 
 };
 
-
 #endif /* PWMCONTROLLER_HPP */
