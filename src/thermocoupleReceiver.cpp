@@ -89,7 +89,7 @@ void ThermocoupleReceiver::getTemp(int idx)
   std::string tempStr(buffer);
   float value = std::stof(
     tempStr.substr(
-      tempStr.find("t=",0,2) + 2, 
+      tempStr.find("t=", 0, 2) + 2, 
       tempStr.find_last_of('\0')
     )) / 1000;
   TempStruct ts;
