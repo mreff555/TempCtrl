@@ -1,7 +1,6 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/mreff555/src/TempCtrl'
 mkdir -p bin obj debug
- 
 g++ -Wno-psabi -lwiringPi -lpthread -c -o obj/bitfield.o src/bitfield.cpp
 g++ -Wno-psabi -lwiringPi -lpthread -c -o obj/button.o src/button.cpp
 g++ -Wno-psabi -lwiringPi -lpthread -c -o obj/buttonManager.o src/buttonManager.cpp

@@ -15,16 +15,6 @@
 #include <cstdint>
 #include <chrono>
 
-/******************************************************************************
- * what follows is a bunch of typedefs.  Linus Torvolds would be very         *
- * disappointed with me but I really don't care.  PID controllers are         *
- * confusing enough as is.                                                    *
- *****************************************************************************/
-typedef int8_t gain_t;
-typedef float temp_t;
-typedef std::chrono::milliseconds dwell_t;
-typedef uint32_t freq_t;
-
 /**
  * @brief Pid Processor - A PID processor for driving a heating coil with
  * millisecond dwell time
@@ -58,12 +48,27 @@ class PidProcessor
     virtual ~PidProcessor() = default;
 
     /**
+     * @brief Initialize all loop parameters
+     * 
+     * @return true on success
+     */
+    bool PidProcessor:: init();
+
+    /**
      * @brief 
      * 
      * @param current 
      * @return dwell_t 
      */
     dwell_t Process(const temp_t current);
+
+    /**
+     * @brief Initilize PID loop
+     * 
+     * @return true success
+     * @return false fail
+     */
+    bool init();
 
     /**
      * @brief Set the process temperature set point in degrees ºC
@@ -133,23 +138,35 @@ class PidProcessor
 
     /**
      * @brief Proportional gain
-     * Min/Max:
+     * Min / Max: 20ºC / 100ºC
      * 
      */
-    gain_t kp;
+    temp_t kp;
 
     /**
      * @brief Integral gain
-     * Min/Max:
+     * Min / Max: 20ºC / 100ºC
      */
-    gain_t ki;
+    temp_t ki;
 
     /**
      * @brief Derivative gain
-     * Min/Max:
+     * Min / Max: 20ºC / 100ºC
      * 
      */
-    gain_t kd;
+    temp_t kd;
+
+    /**
+     * @brief Current temperature deviation from the set point
+     * 
+     */
+    temp_t currentError;
+
+    /**
+     * @brief Setpoint limits
+     * 
+     */
+    ParameterLimits parameterLimits;
 
     /**
      * @brief Get temperature error

@@ -54,7 +54,19 @@ class ButtonSubscriber_I;
 
 #define POLL_FREQ 1000
 
+/******************************************************************************
+ * what follows is a bunch of typedefs.  Linus Torvolds would be very         *
+ * disappointed with me but I really don't care.  PID controllers are         *
+ * confusing enough as is.                                                    *
+ *****************************************************************************/
+typedef float temp_t;
+
+typedef std::chrono::milliseconds dwell_t;
+
+typedef uint32_t freq_t;
+
 typedef std::pair<ButtonSubscriber_I *, Bitfield> SubscriberEntry;
+
 typedef std::list<SubscriberEntry> SubscriberList;
 
 enum ButtonState
@@ -114,5 +126,24 @@ struct PidDataStruct
   float volume;
   /* Need thermodynamic coefficient of some type */
 };
+
+/**
+ * @brief Used to define min/max/default values for a given parameter
+ * 
+ */
+class ParameterLimits
+{
+    public:
+    ParameterLimits(temp_t _min, temp_t _max, temp_t _defaultValue)
+    : min(_min), max(_max), defaultValue(_defaultValue){}
+    
+    temp_t validate(const temp_t);
+
+    private:
+    temp_t min;
+    temp_t max;
+    temp_t defaultValue;
+};
+
 
 #endif /* COMMON_HPP */
