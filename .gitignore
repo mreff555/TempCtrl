@@ -4,3 +4,6 @@
 tempctrl
 .backup
 .vscode
+.Makefile.backup
+build
+

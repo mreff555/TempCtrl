@@ -14,6 +14,7 @@
 #include "common.hpp"
 #include <cstdint>
 #include <chrono>
+#include <vector>
 
 /**
  * @brief Pid Processor - A PID processor for driving a heating coil with
@@ -48,11 +49,12 @@ class PidProcessor
     virtual ~PidProcessor() = default;
 
     /**
-     * @brief Initialize all loop parameters
+     * @brief Initilize PID loop
      * 
-     * @return true on success
+     * @return true success
+     * @return false fail
      */
-    bool PidProcessor:: init();
+    bool init();
 
     /**
      * @brief 
@@ -61,14 +63,6 @@ class PidProcessor
      * @return dwell_t 
      */
     dwell_t Process(const temp_t current);
-
-    /**
-     * @brief Initilize PID loop
-     * 
-     * @return true success
-     * @return false fail
-     */
-    bool init();
 
     /**
      * @brief Set the process temperature set point in degrees ºC
@@ -156,11 +150,9 @@ class PidProcessor
      */
     temp_t kd;
 
-    /**
-     * @brief Current temperature deviation from the set point
-     * 
-     */
-    temp_t currentError;
+    std::vector<temp_t> temp;
+
+    std::vector<temp_t> error;
 
     /**
      * @brief Setpoint limits
@@ -169,12 +161,34 @@ class PidProcessor
     ParameterLimits parameterLimits;
 
     /**
+     * @brief Set the current temperature
+     * 
+     * @param temp
+     * 
+     */
+    void setTemp(temp_t temp);
+
+    /**
+     * @brief Get the current temperature
+     * 
+     * @return temp_t 
+     */
+    temp_t getTemp() const;
+
+    /**
+     * @brief Get temperature error.
+     * 
+     * @param error
+     * 
+     */
+    void setError(temp_t error);
+
+    /**
      * @brief Get temperature error
      * 
-     * @param current - current temperature T2
-     * @return temp_t - temperature error e(t)
+     * @return temp_t - return current error
      */
-    temp_t getError(const temp_t current);
+    temp_t getError() const;
 
     /**
      * @brief Get the proportional adjustment

@@ -8,7 +8,10 @@ PidProcessor::PidProcessor()
 
 bool PidProcessor::init()
 {
-
+    temp.clear();
+    setTemp(TEMP_SP_DEFAULT);
+    error.clear();
+    setError(0);
 }
 
 dwell_t PidProcessor::Process(const temp_t current){}
@@ -53,15 +56,37 @@ temp_t PidProcessor::getKd() const
     return this->kd;
 }
 
-temp_t PidProcessor::getError(const temp_t current)
+void PidProcessor::setTemp(temp_t temp)
 {
-    return this->currentError;
+    this->temp.push_back(temp);
+}
+
+temp_t PidProcessor::getTemp() const
+{
+    return this->temp.back();
+}
+
+void PidProcessor::setError(temp_t error)
+{
+    this->error.push_back(error);
+}
+
+temp_t PidProcessor::getError() const
+{
+    return this->error.back();
 }
 
 temp_t PidProcessor::getProportional(const temp_t error)
 {
-    temp_t returnValue = this->kp;
+    temp_t returnValue = 0;
+    if((this->getKp() * error) > parameterLimits.getMax())
+        returnValue = parameterLimits.getMax();
+    else if((this->getKp() * error) < parameterLimits.getMin())
+        returnValue = parameterLimits.getMin();
+    else
+        returnValue = parameterLimits.getDefault();
     
+    return returnValue;
 }
 
 temp_t PidProcessor::getIntegral(const temp_t error){}

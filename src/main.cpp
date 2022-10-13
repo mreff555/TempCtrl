@@ -21,7 +21,7 @@ void sigHandler(int signum)
 
 int main()
 {
-  /* Signal traps for various inturrupts       */
+  /* Signal traps for various interrupts       */
   signal(SIGINT, sigHandler);  /* Ctrl + C     */
   signal(SIGQUIT, sigHandler); /* Ctrl + D     */
   signal(SIGHUP, sigHandler);  /* On pty close */

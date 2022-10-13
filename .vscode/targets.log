@@ -6,9 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
 
-# Make data base, printed on Sun Sep  4 08:16:11 2022
+# Make data base, printed on Sat Sep 10 19:10:59 2022
 
 # Variables
 
@@ -25,7 +24,7 @@ TARGET := bin/tempctrl
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-PLATFORMIO_IDE = 2.5.2
+PLATFORMIO_IDE = 2.5.4
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # automatic
@@ -73,11 +72,11 @@ HOME = /Users/mreff555
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/mreff555/Library/Application Support/Code/CachedData/e4503b30fc78200f846c62cf8091b76ff5547662
+VSCODE_CODE_CACHE_PATH = /Users/mreff555/Library/Application Support/Code/CachedData/784b0177c56c607789f9638da7b6bf3230d47a8c
 # environment
 LOGNAME = mreff555
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
@@ -121,7 +120,7 @@ TMPDIR = /var/folders/sh/g_44cq854lsb9r49w2616kh40000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/mreff555/Library/Application Support/Code/1.70.2-main.sock
+VSCODE_IPC_HOOK = /Users/mreff555/Library/Application Support/Code/1.71.0-main.sock
 # environment
 MallocNanoZone = 0
 # makefile
@@ -131,7 +130,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.31767240.31767246
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.32231107.32231113
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -165,7 +164,7 @@ OBJ_DEBUG := debug/bitfield.o debug/button.o debug/buttonManager.o debug/buttonS
 # environment
 LANG = C
 # environment
-VSCODE_PID = 62528
+VSCODE_PID = 34545
 # makefile (from `Makefile', line 31)
 DISTCLEAN_LIST := obj/bitfield.o obj/button.o obj/buttonManager.o obj/buttonSubscriber.o obj/common.o obj/dataManager.o obj/lcdScreen.o obj/main.o obj/pidProcessor.o obj/pwmController.o obj/thermocoupleReceiver.o debug/bitfield.o debug/button.o debug/buttonManager.o debug/buttonSubscriber.o debug/common.o debug/dataManager.o debug/lcdScreen.o debug/main.o debug/pidProcessor.o debug/pwmController.o debug/thermocoupleReceiver.o
 # variable set hash-table stats:
@@ -257,6 +256,7 @@ distclean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
+ 
 #  commands to execute (from `Makefile', line 71):
 	@echo CLEAN $(CLEAN_LIST)
 	@rm -f $(DISTCLEAN_LIST)
@@ -269,7 +269,6 @@ debug/lcdScreen.o:
 #  File has not been updated.
 
 # Not a target:
- 
 obj/main.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -290,7 +289,7 @@ obj/buttonSubscriber.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-25 19:42:01
+#  Last modified 2022-09-04 12:02:01
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -470,6 +469,6 @@ obj/common.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sun Sep  4 08:16:11 2022
+# Finished Make data base on Sat Sep 10 19:10:59 2022
 
  

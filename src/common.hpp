@@ -88,7 +88,6 @@ enum EquipmentState
 *  of temperature in degrees celsius, as well  *
 *  as the temp probe ID and a time stamp.      *
 ************************************************/
-
 struct TempStruct
 {
   time_t      ts;
@@ -116,6 +115,9 @@ enum InputMode_E
   INPUT_MODE_MAX_VALUE
 }; 
 
+// TODO: DMF - Wrote this a while ago.  Need to figure out if this will
+// TODO: incorporate into the current PID design, or if it will
+// TODO: need to change.
 struct PidDataStruct
 {
   std::string name;
@@ -139,11 +141,18 @@ class ParameterLimits
     
     temp_t validate(const temp_t);
 
+    temp_t getMin() const;
+
+    temp_t getMax() const;
+    
+    temp_t getDefault() const;
+
     private:
     temp_t min;
+
     temp_t max;
+    
     temp_t defaultValue;
 };
-
 
 #endif /* COMMON_HPP */
