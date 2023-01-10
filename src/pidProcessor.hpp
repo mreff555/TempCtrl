@@ -52,7 +52,7 @@ class PidProcessor
      * 
      * @return true on success
      */
-    bool PidProcessor:: init();
+    bool init();
 
     /**
      * @brief 
