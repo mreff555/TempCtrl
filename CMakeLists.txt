@@ -30,6 +30,14 @@ endmacro(add_unit_test)
 
 include(FetchContent)
 FetchContent_Declare(
+  wiringpi
+  GIT_REPOSITORY https://github.com/WiringPi/WiringPi
+  GIT_TAG 2.61-1
+  )
+FetchContent_MakeAvailable(wiringpi)
+
+include(FetchContent)
+FetchContent_Declare(
   googletest
   GIT_REPOSITORY https://github.com/google/googletest.git
   GIT_TAG release-1.12.1
@@ -46,7 +54,7 @@ add_unit_test(common_test)
 # add_unit_test(lcdScreen_test)           #WiringPi dependancy
 # add_unit_test(pidProcessor_test)i       #???
 # add_unit_test(pwmController_test)       #WiringPi dependancy
-# add_unit_test(thermocoupleReceiver_test)
+add_unit_test(thermocoupleReceiver_test)
 
 # TODO: Need to Set up mocks and add additional arguments to macro
 # to handle dependancies.  Also need to finish all unit tests

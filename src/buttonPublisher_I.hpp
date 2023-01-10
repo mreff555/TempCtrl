@@ -7,7 +7,7 @@ class ButtonSubscriber_I;
 
 class ButtonPublisher_I
 {
-  public:
+public:
   virtual ~ButtonPublisher_I(){};
   virtual void attach(uint8_t gpio, ButtonSubscriber_I *subscriber) = 0;
   virtual void detach(uint8_t gpio, ButtonSubscriber_I *subscriber) = 0;

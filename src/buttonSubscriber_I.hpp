@@ -5,7 +5,7 @@
 
 class ButtonSubscriber_I
 {
-  public:
+public:
   virtual ~ButtonSubscriber_I(){};
   virtual void update(const Button &buttonUpdate) = 0;
 };
