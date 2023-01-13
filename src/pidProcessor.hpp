@@ -48,13 +48,6 @@ class PidProcessor
     virtual ~PidProcessor() = default;
 
     /**
-     * @brief Initialize all loop parameters
-     * 
-     * @return true on success
-     */
-    bool PidProcessor:: init();
-
-    /**
      * @brief 
      * 
      * @param current 
