@@ -4,3 +4,4 @@
 tempctrl
 .backup
 .vscode
+build/*
