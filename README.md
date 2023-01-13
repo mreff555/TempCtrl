@@ -5,6 +5,14 @@
 ## Overview
 A PIC temperature control deamon implementing heating coil relay control, I2C 2x16 LCD screen controls with adaptibility for as many buttons as you can spare gpio's. Currently the system is implemented with 4 buttons up, down, enter and back. 
 
+Pull requests
+
+I have been really busy with life... and other projects lately.  What to contribute?  Please feel free to submit a pull request.  I am up for bug fixes or features, here are some known areas which need more work.
+
+- I built this off a RPI 4.  I started making arrangements for the older versions but never got around to it.
+- Unit testing through docker, which means getting creative with the /proc filesystem
+- Still never finished the PID algorithm.
+
 ## Dependancies
 - wiringPi.h
 - wiringPiI2c.h
