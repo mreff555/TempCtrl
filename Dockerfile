@@ -10,6 +10,9 @@ RUN pacman -Sy --noconfirm gcc \
     sed \
     cmake
 
+# For debugging
+RUN pacman -Syu --noconfirm vim
+
 # Install wiring pi
 RUN cd ${HOME} && \
     git clone https://github.com/WiringPi/WiringPi && \
