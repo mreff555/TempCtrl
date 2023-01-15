@@ -62,6 +62,8 @@ build: gen_cmake ## Build source. In order to build a specific target run: make 
 	docker run ${DOCKER_BASIC_RUN_PARAMS} \
 		${DOCKER_SHELL} -c \
 		"cd ${DOCKER_BUILD_DIR} && \
+		rm -f CMakeCache.txt && \
+		cmake .. && \
 		make -j $$(nproc) ${TARGET}"
 	@echo
 	@echo "Build finished. The binaries are in ${CURDIR}/${DOCKER_BUILD_DIR}"

@@ -1,11 +1,11 @@
 #ifndef COMMON_HPP
 #define COMMON_HPP
 
-#include <list>
 #include <chrono>
 #include <cstdint>
-#include <string>
 #include <ctime>
+#include <list>
+#include <string>
 #include <utility>
 
 class Bitfield;
@@ -17,23 +17,23 @@ class ButtonSubscriber_I;
 // location will be 0x0.  The only reason we need the GPIO_BASE macro
 // is to calculate offsets within the GPIO memory range.
 
-#define BCM2835_PERI_BASE 0x20000000   // RPI 1
-#define BCM2708_PERI_BASE 0x3f000000   // RPI 2 + 3
-#define BCM2711_PERI_BASE 0x7e200000   // RPI 4
-#define GPIO_MAX    53
-#define BLOCK_SIZE  (4*1024)
+#define BCM2835_PERI_BASE 0x20000000 // RPI 1
+#define BCM2708_PERI_BASE 0x3f000000 // RPI 2 + 3
+#define BCM2711_PERI_BASE 0x7e200000 // RPI 4
+#define GPIO_MAX 53
+#define BLOCK_SIZE (4 * 1024)
 
 // Word offsets of GPIO registers
-#define GPLEV0      13
-#define GPLEV1      14
+#define GPLEV0 13
+#define GPLEV1 14
 
 // This is the timeout for the event loop.  Be conservative until we know
 // what this thing can handle.
-#define SCAN_RATE   5  // milliseconds
+#define SCAN_RATE 5 // milliseconds
 
 // This is the minimum time a button must be held to handle the interaction
 // as a held button.
-#define MIN_BUTTON_HOLD_TIME    200  // milliseconds
+#define MIN_BUTTON_HOLD_TIME 200 // milliseconds
 
 // This is the buffer size for historical temperature data.
 #define TEMP_HISTORY_SIZE 50
@@ -43,8 +43,9 @@ class ButtonSubscriber_I;
 
 #define TEMP_MIN_SP 20
 
-// If the Data Manager is unable to get thermocouple input during initialization.
-// This is the default value in celsius, which temperature will be set to.
+// If the Data Manager is unable to get thermocouple input during
+// initialization. This is the default value in celsius, which temperature will
+// be set to.
 #define TEMP_SP_DEFAULT 20
 
 #define W1_DEV_ROOT "/sys/bus/w1/devices/w1_bus_master1/"
@@ -85,16 +86,16 @@ enum EquipmentState
 };
 
 /***********************************************
-*  A structure for holding a single data point *
-*  of temperature in degrees celsius, as well  *
-*  as the temp probe ID and a time stamp.      *
-************************************************/
+ *  A structure for holding a single data point *
+ *  of temperature in degrees celsius, as well  *
+ *  as the temp probe ID and a time stamp.      *
+ ************************************************/
 
 struct TempStruct
 {
-  time_t      ts;
-  std::string id; 
-  float       temp;
+  time_t ts;
+  std::string id;
+  float temp;
 };
 
 enum TScale_E
@@ -115,7 +116,7 @@ enum InputMode_E
   LOAD_PROFILE,
   PID_TUNE,
   INPUT_MODE_MAX_VALUE
-}; 
+};
 
 struct PidDataStruct
 {
@@ -130,21 +131,22 @@ struct PidDataStruct
 
 /**
  * @brief Used to define min/max/default values for a given parameter
- * 
+ *
  */
 class ParameterLimits
 {
-    public:
-    ParameterLimits(temp_t _min, temp_t _max, temp_t _defaultValue)
-    : min(_min), max(_max), defaultValue(_defaultValue){}
-    
-    temp_t validate(const temp_t);
+public:
+  ParameterLimits(temp_t _min, temp_t _max, temp_t _defaultValue)
+      : min(_min), max(_max), defaultValue(_defaultValue)
+  {
+  }
 
-    private:
-    temp_t min;
-    temp_t max;
-    temp_t defaultValue;
+  temp_t validate(const temp_t);
+
+private:
+  temp_t min;
+  temp_t max;
+  temp_t defaultValue;
 };
-
 
 #endif /* COMMON_HPP */

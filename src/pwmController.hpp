@@ -1,10 +1,10 @@
 #ifndef PWMCONTROLLER_HPP
 #define PWMCONTROLLER_HPP
 
-#include "common.hpp"
-#include <wiringPi.h>
-#include <softPwm.h>
+#include <common.hpp>
 #include <cstdint>
+#include <softPwm.h>
+#include <wiringPi.h>
 
 #define PWM_PIN0 13
 #define PWM_INITIAL_VALUE 3
@@ -18,14 +18,14 @@
 
 class PwmController
 {
-  public:
+public:
   PwmController();
 
   ~PwmController();
 
   PwmController(const PwmController &obj) = delete;
 
-  PwmController operator=(const PwmController&rhs) = delete;
+  PwmController operator=(const PwmController &rhs) = delete;
 
   bool init();
 
@@ -44,7 +44,7 @@ class PwmController
   void operator--();
 
   void operator-=(const uint8_t value);
-  
+
   // TODO:  Still working this out but the current
   // thinking is that the setters for the requency
   // and duty cycle should probably be private,
@@ -64,7 +64,7 @@ class PwmController
 
   uint8_t getDutyCycle() const;
 
-  private:
+private:
   EquipmentState pwmState;
 
   uint8_t intensity;
@@ -72,7 +72,6 @@ class PwmController
   uint32_t frequency;
 
   uint8_t dutyCycle;
-
 };
 
 #endif /* PWMCONTROLLER_HPP */

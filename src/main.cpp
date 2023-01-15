@@ -1,22 +1,22 @@
-#include "buttonManager.hpp"
-#include "dataManager.hpp"
-#include "thermocoupleReceiver.hpp"
-#include "lcdScreen.hpp"
-#include "buttonSubscriber.hpp"
-#include "pwmController.hpp"
-#include <signal.h>
-#include <memory>
+#include <buttonManager.hpp>
+#include <buttonSubscriber.hpp>
+#include <dataManager.hpp>
+#include <lcdScreen.hpp>
+#include <pwmController.hpp>
+#include <thermocoupleReceiver.hpp>
 #include <chrono>
-#include <thread>
+#include <memory>
+#include <signal.h>
 #include <stdio.h>
+#include <thread>
 
 /* Terminate processing flag */
 bool terminate = false;
-  
+
 void sigHandler(int signum)
 {
   terminate = true;
-  printf("Terminated on sig %d\n", signum); 
+  printf("Terminated on sig %d\n", signum);
 }
 
 int main()
@@ -29,32 +29,30 @@ int main()
 
   /* Since multiple threads currently need     */
   /* Wiring Pi to initialize, we call it here. */
-  if(wiringPiSetup() == -1) exit(1);
+  if (wiringPiSetup() == -1)
+    exit(1);
 
-  std::shared_ptr<ButtonManager> buttonManager = std::make_shared<ButtonManager>();
-  std::shared_ptr<LcdScreen> lcdScreen = std::make_shared<LcdScreen>();
-  std::shared_ptr<DataManager> dataManager = std::make_shared<DataManager>(buttonManager, lcdScreen);
+  auto buttonManager = std::make_shared<ButtonManager>();
+  auto lcdScreen = std::make_shared<LcdScreen>();
+  auto dataManager = std::make_shared<DataManager>(buttonManager, lcdScreen);
 
-  ThermocoupleReceiver *thermocoupleReceiver = new ThermocoupleReceiver(*dataManager);
-  ButtonSubscriber *subscriber = new ButtonSubscriber(*buttonManager);
-  // PwmController *pwmController = new PwmController();
-    
+  auto thermocoupleReceiver =
+      std::make_shared<ThermocoupleReceiver>(dataManager);
+  auto subscriber = std::make_shared<ButtonSubscriber>(buttonManager);
+  auto pwmController = std::make_shared<PwmController>();
+
   /* Start event loops */
-  std::thread buttonManagerThread(
-    &ButtonManager::startEventLoop, buttonManager, std::ref(terminate));
-  std::thread dataManagerThread(
-    &DataManager::startEventLoop, dataManager, std::ref(terminate));
-  std::thread thermocoupleThread(
-    &ThermocoupleReceiver::startEventLoop, thermocoupleReceiver, std::ref(terminate));
-  // std::thread pwmControllerThread(
-  //   &PwmController::startEventLoop, pwmController, std::ref(terminate));  
+  std::thread buttonManagerThread(&ButtonManager::startEventLoop, buttonManager,
+                                  std::ref(terminate));
+  std::thread dataManagerThread(&DataManager::startEventLoop, dataManager,
+                                std::ref(terminate));
+  std::thread thermocoupleThread(&ThermocoupleReceiver::startEventLoop,
+                                 thermocoupleReceiver, std::ref(terminate));
+  std::thread pwmControllerThread(&PwmController::startEventLoop, pwmController,
+                                  std::ref(terminate));
 
   buttonManagerThread.join();
   dataManagerThread.join();
   thermocoupleThread.join();
-  // pwmControllerThread.join();
-
-  delete subscriber;
-  delete thermocoupleReceiver;
-  // delete pwmController;
+  pwmControllerThread.join();
 }
