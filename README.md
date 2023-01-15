@@ -5,7 +5,7 @@
 ## Overview
 A PID temperature control deamon implementing heating coil relay control, I2C 2x16 LCD screen controls with adaptibility for as many buttons as you can spare gpio's. Currently the system is implemented with 4 buttons up, down, enter and back. 
 
-Pull requests
+## Pull requests
 
 I have been really busy with life... and other projects lately.  What to contribute?  Please feel free to submit a pull request.  I am up for bug fixes or features, here are some known areas which need more work.
 
