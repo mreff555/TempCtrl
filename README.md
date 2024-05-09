@@ -5,7 +5,7 @@
 ## Overview
 A PID temperature control deamon implementing heating coil relay control, I2C 2x16 LCD screen controls with adaptibility for as many buttons as you can spare gpio's. Currently the system is implemented with 4 buttons up, down, enter and back. 
 
-Pull requests
+## Pull requests
 
 I have been really busy with life... and other projects lately.  What to contribute?  Please feel free to submit a pull request.  I am up for bug fixes or features, here are some known areas which need more work.
 
@@ -25,7 +25,7 @@ Starting with RPI 4, the device driver /dev/gpiomem was created to allow system-
 The LCD screen is implemented leveraging the Wiring PI I2c package.  Other than that the package should comple with c++03.
 
 ## Installation
-Install is now based on a docker container.  This gives the developer to work on the PI itself if he is a very patient sadomacicist or on any other platform he chooses.  The binary will not run without ELF format so at the moment you will still need to run in the docker environment, unless you are on a linux system.  Unless you are running on a PI, WiringPi libraries will imediately complain and fail because it can't find version info.  Eventually I may implement a work around to allow unit testing.
+Install is now based on a docker container.  This gives the developer the ability to work on the PI itself if he is a very patient sadomacicist or on any other platform he chooses.  The binary will not run without ELF format so at the moment you will still need to run in the docker environment, unless you are on a linux system.  Unless you are running on a PI, WiringPi libraries will imediately complain and fail because it can't find version info.  Eventually I may implement a work around to allow unit testing.
 
 ### Dockerized build (Works on all platforms)
 

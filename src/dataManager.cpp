@@ -166,16 +166,10 @@ bool DataManager::init()
 {
   bool success = false;
 
-  // This is where buttons are any buttons are registered
-  // TODO: I may want to consolidate these actions
-  // into a single function.  I guess I'll wait until
-  // all of the buttons are working to decide
-  //
   /* Menu Button Registration */
-  registeredButton.push_back(Button(26)); // Create a button object, gpio 26
-  mButtonManager->addButton(
-      registeredButton.back()); // Add the button to the button manager
-  subscribe(registeredButton.back().getGpio()); // Subscribe to button updates
+  registeredButton.push_back(Button(26));                   // Create a button object, gpio 26
+  mButtonManager->addButton(registeredButton.back());       // Add the button to the button manager
+  subscribe(registeredButton.back().getGpio());             // Subscribe to button updates
 
   /* Up Button Registration */
   registeredButton.push_back(Button(27));
