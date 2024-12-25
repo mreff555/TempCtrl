@@ -1,192 +1,246 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-# GNU Make 3.81
-# Copyright (C) 2006  Free Software Foundation, Inc.
-# This is free software; see the source for copying conditions.
-# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
-# PARTICULAR PURPOSE.
+make: *** No rule to make target 'all'.  Stop.
 
-# This program built for i386-apple-darwin11.3.0
+# GNU Make 4.4.1
+# Built for x86_64-apple-darwin23.0.0
+# Copyright (C) 1988-2023 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+ 
 
-# Make data base, printed on Mon Jan  9 21:13:35 2023
+# Make data base, printed on Wed Dec 25 14:53:30 2024
 
 # Variables
 
-# automatic
-<D = $(patsubst %/,%,$(dir $<))
-# automatic
-?F = $(notdir $?)
 # environment
-ELECTRON_NO_ATTACH_CONSOLE = 1
-# makefile (from `Makefile', line 27)
-OBJ := obj/bitfield.o obj/button.o obj/buttonManager.o obj/buttonSubscriber.o obj/common.o obj/dataManager.o obj/lcdScreen.o obj/main.o obj/pidProcessor.o obj/pwmController.o obj/thermocoupleReceiver.o
-# makefile (from `Makefile', line 26)
-SRC :=  src/bitfield.cpp src/button.cpp src/buttonManager.cpp src/buttonSubscriber.cpp src/common.cpp src/dataManager.cpp src/lcdScreen.cpp src/main.cpp src/pidProcessor.cpp src/pwmController.cpp src/thermocoupleReceiver.cpp
-# makefile (from `Makefile', line 22)
-TARGET := bin/tempctrl 
-# automatic
-?D = $(patsubst %/,%,$(dir $?))
+LC_ALL = C
 # environment
-PLATFORMIO_IDE = 2.5.5
-# automatic
-@D = $(patsubst %/,%,$(dir $@))
-# automatic
-@F = $(notdir $@)
-# makefile
-CURDIR := /Users/mreff555/src/TempCtrl
-# makefile
-SHELL = /bin/sh
+VSCEXT_EXHORT_SKOPEO_PATH = skopeo
+# makefile (from 'Makefile', line 1)
+PROJECT_NAME = tempctrl
 # environment
-VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+ 
+TMPDIR = /var/folders/sh/g_44cq854lsb9r49w2616kh40000gn/T/
 # environment
-_ = /usr/bin/make
-# makefile (from `Makefile', line 1)
-MAKEFILE_LIST :=  Makefile
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.118817947.118817953
+# makefile (from 'Makefile', line 12)
+DOCKER_DEPS_IMAGE_BUILD_FLAGS = --no-cache=true
+# makefile (from 'Makefile', line 7)
+DOCKER_DEPS_IMAGE = ${PROJECT_NAME}_build
+# environment
+VSCODE_CRASH_REPORTER_PROCESS_TYPE = extensionHost
+# environment
+VSCODE_CWD = /
+# environment
+VSCEXT_EXHORT_IMAGE_PLATFORM = 
+# makefile (from 'Makefile', line 38)
+IF_CONTAINER_RUNS = $(shell docker container inspect -f '{{.State.Running}}' ${DOCKER_DEPS_CONTAINER} 2>/dev/null)
+# environment
+VSCEXT_EXHORT_GRADLE_PATH = gradle
+# environment
+VSCEXT_TRACK_RECOMMENDATION_ACCEPTANCE_COMMAND = rhda.trackRecommendationAcceptance
+# default
+MAKE_COMMAND := make
+# environment
+APPLICATIONINSIGHTS_CONFIGURATION_CONTENT = {}
+# makefile (from 'Makefile', line 20)
+LOCAL_SOURCE_PATH = ${CURDIR}
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
-# environment
-VSCODE_CWD = /Users/mreff555/src/TempCtrl
-# environment
-NO_PROXY = 127.0.0.1
-# makefile (from `Makefile', line 14)
-SRC_PATH := src
-# environment
-LaunchInstanceID = EF794072-11E6-4C12-9600-B313D550F19D
-# makefile (from `Makefile', line 12)
-BIN_PATH := bin
-# environment
-ELECTRON_RUN_AS_NODE = 1
-# default
-.FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
-# makefile (from `Makefile', line 9)
-CCOBJFLAGS := -Wno-psabi -lwiringPi -lpthread -c
-# environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.d4zQVkvdg9/Listeners
 # automatic
-%F = $(notdir $%)
+@D = $(patsubst %/,%,$(dir $@))
 # environment
-DISPLAY = /private/tmp/com.apple.launchd.FCVFEdr8cm/org.xquartz:0
+VSCEXT_EXHORT_SYFT_CONFIG_PATH = 
 # environment
-PWD = /Users/mreff555/src/TempCtrl
-# environment
-ORIGINAL_XDG_CURRENT_DESKTOP = undefined
-# makefile (from `Makefile', line 33)
-CLEAN_LIST := bin/tempctrl  debug/tempctrl  obj/bitfield.o obj/button.o obj/buttonManager.o obj/buttonSubscriber.o obj/common.o obj/dataManager.o obj/lcdScreen.o obj/main.o obj/pidProcessor.o obj/pwmController.o obj/thermocoupleReceiver.o debug/bitfield.o debug/button.o debug/buttonManager.o debug/buttonSubscriber.o debug/common.o debug/dataManager.o debug/lcdScreen.o debug/main.o debug/pidProcessor.o debug/pwmController.o debug/thermocoupleReceiver.o
-# environment
-VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
-# environment
-HOME = /Users/mreff555
-# default
-MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
-# environment
-VSCODE_CLI = 1
-# environment
-VSCODE_CODE_CACHE_PATH = /Users/mreff555/Library/Application Support/Code/CachedData/e8a3071ea4344d9d48ef8a4df2c097372b0c5161
-# environment
-LOGNAME = mreff555
-# environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+VSCEXT_EXHORT_PIP_PATH = pip
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
-# automatic
-^D = $(patsubst %/,%,$(dir $^))
-# environment
-PLATFORMIO_PATH = /Users/mreff555/.platformio/python3/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/TeX/texbin:/opt/X11/bin:/Library/Apple/usr/bin:/Applications/Wireshark.app/Contents/MacOS
-# default
-MAKE = $(MAKE_COMMAND)
-# default
-MAKECMDGOALS := all
-# environment
-PATH = /usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/TeX/texbin:/opt/X11/bin:/Library/Apple/usr/bin:/Applications/Wireshark.app/Contents/MacOS
-# environment
-SHLVL = 3
-# environment
-XPC_FLAGS = 0x0
-# makefile (from `Makefile', line 6)
-CC := g++
-# makefile (from `Makefile', line 18)
-TARGET_NAME := tempctrl 
-# makefile (from `Makefile', line 23)
-TARGET_DEBUG := debug/tempctrl 
-# default
-MAKE_VERSION := 3.81
-# environment
-USER = mreff555
-# makefile
-.DEFAULT_GOAL := default
-# makefile (from `Makefile', line 7)
-CCFLAGS := -Wno-psabi -lwiringPi -lpthread
-# environment
-TERM_SESSION_ID = E145591D-CF31-49AF-A8E1-605095C99A62
-# makefile (from `Makefile', line 13)
-OBJ_PATH := obj
-# automatic
-%D = $(patsubst %/,%,$(dir $%))
-# default
-MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
-# environment
-TERM_PROGRAM = Apple_Terminal
 # default
 .VARIABLES := 
 # environment
-TMPDIR = /var/folders/sh/g_44cq854lsb9r49w2616kh40000gn/T/
+COMMAND_MODE = unix2003
+# environment
+PWD = /Users/mreff555/src/TempCtrl
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+VSCEXT_EXHORT_MVN_PATH = mvn
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# automatic
+%F = $(notdir $%)
+# environment
+VSCODE_CODE_CACHE_PATH = /Users/mreff555/Library/Application Support/Code/CachedData/f1a4fb101478ce6ec82fe9627c43efbf9e98c813
+# environment
+LANG = C
+# makefile (from 'Makefile', line 9)
+DOCKER_DEPS_CONTAINER = ${DOCKER_DEPS_IMAGE}
+# default
+.LOADED := 
+# default
+.INCLUDE_DIRS := /usr/local/Cellar/make/4.4.1/include /usr/local/include
+# environment
+__CF_USER_TEXT_ENCODING = 0x1F5:0x0:0x0
+# makefile
+MAKEFLAGS = pqrR
+# makefile
+CURDIR := /Users/mreff555/src/TempCtrl
+# environment
+VSCEXT_EXHORT_GO_PATH = go
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+VSCODE_L10N_BUNDLE_LOCATION = 
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# makefile (from 'Makefile', line 21)
+DOCKER_SOURCE_PATH = /root/project_root
+# makefile (from 'Makefile', line 22)
+DOCKER_BUILD_DIR = build
+# environment
+VSCEXT_EXHORT_PYTHON_PATH = python
+# makefile (from 'Makefile', line 23)
+DOCKER_CTEST_TIMEOUT = 5000
+# environment
+MFLAGS = -pqrR
+# environment
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.gS3ZKM3ZvH/Listeners
+# default
+.SHELLFLAGS := -c
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST := Makefile
+# environment
+VSCEXT_EXHORT_PODMAN_PATH = podman
+# automatic
+@F = $(notdir $@)
+# environment
+VSCODE_PID = 3756
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+VSCEXT_EXHORT_PIP3_PATH = pip3
+# makefile (from 'Makefile', line 8)
+DOCKER_DEPS_VERSION = latest
+# environment
+MallocNanoZone = 0
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/mreff555/Library/Application Support/Code/1.74.2-main.sock
+VSCEXT_EXHORT_SYFT_PATH = syft
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
 # environment
-MallocNanoZone = 0
+VSCODE_NLS_CONFIG = {"userLocale":"en-us","osLocale":"en-us","resolvedLanguage":"en","defaultMessagesFile":"/Applications/Visual Studio Code.app/Contents/Resources/app/out/nls.messages.json","locale":"en-us","availableLanguages":{}}
+# default
+MAKE_HOST := x86_64-apple-darwin23.0.0
 # makefile
-MAKEFLAGS = Rrqp
+SHELL = /bin/sh
+# makefile (from 'Makefile', line 10)
+DOCKER_DEPS_FILE = Dockerfile
+# default
+MAKECMDGOALS := all
 # environment
-MFLAGS = -Rrqp
-# automatic
-*D = $(patsubst %/,%,$(dir $*))
+SHLVL = 1
 # environment
-TERM_PROGRAM_VERSION = 447
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.42619027.42619033.284AA0D8-58E2-4E7F-859D-F24BDB061D91
-# automatic
-+D = $(patsubst %/,%,$(dir $+))
-# automatic
-+F = $(notdir $+)
-# environment
-__CF_USER_TEXT_ENCODING = 0x1F5:0x0:0x0
-# environment
-COMMAND_MODE = unix2003
+PATH = /usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/X11/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/Applications/Wireshark.app/Contents/MacOS:/Applications/VMware Fusion.app/Contents/Public
 # default
 MAKEFILES := 
 # automatic
-<F = $(notdir $<)
-# environment
-PLATFORMIO_CALLER = vscode
-# makefile (from `Makefile', line 15)
-DBG_PATH := debug
-# environment
-LC_ALL = C
-# makefile (from `Makefile', line 8)
-DBGFLAGS := -g
-# environment
-SECURITYSESSIONID = 186a3
-# automatic
 ^F = $(notdir $^)
+# makefile (from 'Makefile', line 14)
+DOCKER_PREPEND_MAKEFILES = 
+# environment
+VSCEXT_USE_PIP_DEP_TREE = false
+# environment
+VSCEXT_TELEMETRY_ID = 1a7b920b-7852-4a78-b114-cd0d1976bd22
+# makefile (from 'Makefile', line 17)
+DOCKER_CMAKE_FLAGS = 
+# environment
+VSCEXT_EXHORT_DOCKER_PATH = docker
+# environment
+VSCEXT_STACK_ANALYSIS_COMMAND = rhda.stackAnalysis
+# automatic
+?F = $(notdir $?)
+# environment
+VSCEXT_EXHORT_NPM_PATH = npm
+# automatic
++F = $(notdir $+)
+# makefile (from 'Makefile', line 15)
+DOCKER_APPEND_MAKEFILES = 
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+LOGNAME = mreff555
+# environment
+VSCEXT_EXHORT_SKOPEO_CONFIG_PATH = 
+# environment
+XPC_FLAGS = 0x0
+# environment
+VSCEXT_USE_PYTHON_VIRTUAL_ENVIRONMENT = false
+ 
+# makefile (from 'Makefile', line 3)
+DOCKER_CC = gcc
+# environment
+VSCEXT_MATCH_MANIFEST_VERSIONS = true
+# makefile (from 'Makefile', line 40)
+.DEFAULT_GOAL := build
+# environment
+VSCEXT_VULNERABILITY_ALERT_SEVERITY = Error
+# environment
+DISPLAY = /private/tmp/com.apple.launchd.WssPtXWvCx/org.xquartz:0
+# environment
+USER = mreff555
+# default
+MAKE_VERSION := 4.4.1
+# environment
+VSCEXT_UTM_SOURCE = vscode
+# environment
+_ = /usr/local/bin/make
+# environment
+VSCEXT_EXHORT_PYTHON3_PATH = python3
+# makefile (from 'Makefile', line 29)
+DOCKER_BASIC_RUN_PARAMS = -it --init --rm --memory-swap=-1 --ulimit core=-1 --name="${DOCKER_DEPS_CONTAINER}" --workdir=${DOCKER_SOURCE_PATH} --mount type=bind,source=${LOCAL_SOURCE_PATH},target=${DOCKER_SOURCE_PATH} ${DOCKER_ADDITIONAL_RUN_PARAMS} ${DOCKER_DEPS_REPO}${DOCKER_DEPS_IMAGE}:${DOCKER_DEPS_VERSION}
+# environment
+VSCEXT_ENABLE_PYTHON_BEST_EFFORTS_INSTALLATION = false
+# environment
+HOME = /Users/mreff555
+# makefile (from 'Makefile', line 27)
+DOCKER_ADDITIONAL_RUN_PARAMS = 
+# makefile (from 'Makefile', line 19)
+DOCKER_SHELL = bash
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+VSCODE_IPC_HOOK = /Users/mreff555/Library/Application Support/Code/1.95-main.sock
+# makefile (from 'Makefile', line 6)
+DOCKER_DEPS_REPO = ${PROJECT_NAME}/
+# environment
+VSCEXT_USE_GO_MVS = false
+# makefile (from 'Makefile', line 25)
+DOCKER_TEST_CORE_DIR = ${DOCKER_BUILD_DIR}/cores
+# default
+.RECIPEPREFIX := 
+# automatic
+<F = $(notdir $<)
 # default
 SUFFIXES := 
+# makefile (from 'Makefile', line 4)
+DOCKER_CXX = g++
 # default
-.INCLUDE_DIRS = /usr/local/include
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs notintermediate shell-export archives jobserver jobserver-fifo output-sync check-symlink load
 # environment
-MAKELEVEL := 0
-# makefile (from `Makefile', line 28)
-OBJ_DEBUG := debug/bitfield.o debug/button.o debug/buttonManager.o debug/buttonSubscriber.o debug/common.o debug/dataManager.o debug/lcdScreen.o debug/main.o debug/pidProcessor.o debug/pwmController.o debug/thermocoupleReceiver.o
-# environment
-LANG = C
-# environment
-TERM = xterm-256color
-# environment
-VSCODE_PID = 490
-# makefile (from `Makefile', line 31)
-DISTCLEAN_LIST := obj/bitfield.o obj/button.o obj/buttonManager.o obj/buttonSubscriber.o obj/common.o obj/dataManager.o obj/lcdScreen.o obj/main.o obj/pidProcessor.o obj/pwmController.o obj/thermocoupleReceiver.o debug/bitfield.o debug/button.o debug/buttonManager.o debug/buttonSubscriber.o debug/common.o debug/dataManager.o debug/lcdScreen.o debug/main.o debug/pidProcessor.o debug/pwmController.o debug/thermocoupleReceiver.o
+VSCODE_ESM_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # variable set hash-table stats:
-# Load=87/1024=8%, Rehash=0, Collisions=6/141=4%
+# Load=112/1024=11%, Rehash=0, Collisions=20/162=12%
 
 # Pattern-specific Variable Values
 
@@ -194,228 +248,62 @@ DISTCLEAN_LIST := obj/bitfield.o obj/button.o obj/buttonManager.o obj/buttonSubs
 
 # Directories
 
-# . (device 16777225, inode 43970546): 9 files, no impossibilities.
-# src (device 16777225, inode 43970622): 26 files, no impossibilities.
+# . (device 16777221, inode 43970546): 16 files, no impossibilities.
 
-# 35 files, no impossibilities in 2 directories.
+# 16 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
-obj/%.o: src/%.c*
-#  commands to execute (from `Makefile', line 45):
-	$(CC) $(CCOBJFLAGS) -o $@ $<
-	
-
-debug/%.o: src/%.c*
-#  commands to execute (from `Makefile', line 48):
-	$(CC) $(CCOBJFLAGS) $(DBGFLAGS) -o $@ $<
-	
-
-# 2 implicit rules, 0 (0.0%) terminal.
+# No implicit rules.
 
 # Files
 
 # Not a target:
-debug/main.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-debug/buttonSubscriber.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-src/bitfield.cpp:
-#  Implicit rule search has been done.
-#  Last modified 2023-01-09 21:08:11
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-debug/dataManager.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-all: bin/tempctrl
-#  Phony target (prerequisite of .PHONY).
-#  Command-line target.
-#  Implicit rule search has not been done.
-#  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
- 
-# Load=0/32=0%, Rehash=0, Collisions=0/4=0%
-
-.PHONY: makedir all debug clean distclean
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-debug/pwmController.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-debug/button.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-distclean:
-#  Phony target (prerequisite of .PHONY).
-#  Implicit rule search has not been done.
-#  File does not exist.
-#  File has not been updated.
-#  commands to execute (from `Makefile', line 71):
-	@echo CLEAN $(CLEAN_LIST)
-	@rm -f $(DISTCLEAN_LIST)
-	
-
-# Not a target:
-debug/lcdScreen.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-obj/main.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-obj/buttonSubscriber.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-.SUFFIXES:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2023-01-09 21:08:11
+#  File is secondary (prerequisite of .SECONDARY).
+#  Last modified 2024-12-25 14:51:08.407537934
 #  File has been updated.
 #  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-# Not a target:
-debug/buttonManager.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-debug: debug/tempctrl
+build-docker-deps-image:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
+#  recipe to execute (from 'Makefile', line 97):
+	docker build ${DOCKER_DEPS_IMAGE_BUILD_FLAGS} -t ${DOCKER_DEPS_REPO}${DOCKER_DEPS_IMAGE}:latest \
+		-f ./${DOCKER_DEPS_FILE} .
+	@echo
+	@echo "Build finished. Docker image name: \"${DOCKER_DEPS_REPO}${DOCKER_DEPS_IMAGE}:latest\"."
+	@echo "Before you push it to Docker Hub, please tag it(DOCKER_DEPS_VERSION + 1)."
+	@echo "If you want the image to be the default, please update the following variables:"
+	@echo "${CURDIR}/Makefile: DOCKER_DEPS_VERSION"
 
-# Not a target:
-obj/dataManager.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-debug/bitfield.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-obj/pwmController.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-obj/button.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-bin/tempctrl: obj/bitfield.o obj/button.o obj/buttonManager.o obj/buttonSubscriber.o obj/common.o obj/dataManager.o obj/lcdScreen.o obj/main.o obj/pidProcessor.o obj/pwmController.o obj/thermocoupleReceiver.o
+clean:
+#  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/4=0%
-#  commands to execute (from `Makefile', line 42):
-	$(CC) $(CCFLAGS) -o $@ $(OBJ)
-	
-
-# Not a target:
-obj/lcdScreen.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
 #  File has not been updated.
+#  recipe to execute (from 'Makefile', line 81):
+	docker run ${DOCKER_BASIC_RUN_PARAMS} \
+		${DOCKER_SHELL} -c \
+		"rm -rf ${DOCKER_BUILD_DIR}"
 
-default: makedir all
+gen_cmake:
+#  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-debug/pidProcessor.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-debug/thermocoupleReceiver.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-obj/buttonManager.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-obj/bitfield.o: src/bitfield.cpp
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `bitfield'
 #  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := obj/bitfield.o
-# automatic
-# % := 
-# automatic
-# * := bitfield
-# automatic
-# + := src/bitfield.cpp
-# automatic
-# | := 
-# automatic
-# < := src/bitfield.cpp
-# automatic
-# ^ := src/bitfield.cpp
-# automatic
-# ? := src/bitfield.cpp
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/14=7%
-#  commands to execute (from `Makefile', line 45):
-	$(CC) $(CCOBJFLAGS) -o $@ $<
-	
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 51):
+	docker run ${DOCKER_BASIC_RUN_PARAMS} \
+		${DOCKER_SHELL} -c \
+		"mkdir -p ${DOCKER_SOURCE_PATH}/${DOCKER_BUILD_DIR} && \
+		cd ${DOCKER_BUILD_DIR} && \
+		CC=${DOCKER_CC} CXX=${DOCKER_CXX} \
+		cmake ${DOCKER_CMAKE_FLAGS} .."
+	@echo
+	@echo "CMake finished."
 
 # Not a target:
 .DEFAULT:
@@ -423,70 +311,83 @@ obj/bitfield.o: src/bitfield.cpp
 #  Modification time never checked.
 #  File has not been updated.
 
-debug/tempctrl: debug/bitfield.o debug/button.o debug/buttonManager.o debug/buttonSubscriber.o debug/common.o debug/dataManager.o debug/lcdScreen.o debug/main.o debug/pidProcessor.o debug/pwmController.o debug/thermocoupleReceiver.o
-#  Implicit rule search has not been done.
-#  Modification time never checked.
+# Not a target:
+all:
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 51):
-	$(CC) $(CCFLAGS) $(DBGFLAGS) $(OBJ_DEBUG) -o $@
-	
 
-makedir:
+help:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 56):
-	@mkdir -p $(BIN_PATH) $(OBJ_PATH) $(DBG_PATH)
-	
+#  recipe to execute (from 'Makefile', line 46):
+	@cat $(MAKEFILE_LIST) | grep -E '^[a-zA-Z_-]+:.*?## .*$$' | \
+		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-clean:
+build: gen_cmake
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 66):
-	@echo CLEAN $(CLEAN_LIST)
-	@rm -f $(CLEAN_LIST)
-	
+#  recipe to execute (from 'Makefile', line 62):
+	docker run ${DOCKER_BASIC_RUN_PARAMS} \
+		${DOCKER_SHELL} -c \
+		"cd ${DOCKER_BUILD_DIR} && \
+		rm -f CMakeCache.txt && \
+		cmake .. && \
+		make -j $$(nproc) ${TARGET}"
+	@echo
+	@echo "Build finished. The binaries are in ${CURDIR}/${DOCKER_BUILD_DIR}"
 
-# Not a target:
-debug/common.o:
+test:
+#  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
-#  Modification time never checked.
+#  File does not exist.
 #  File has not been updated.
+#  recipe to execute (from 'Makefile', line 73):
+	docker run ${DOCKER_BASIC_RUN_PARAMS} \
+		${DOCKER_SHELL} -c \
+		"mkdir -p ${DOCKER_TEST_CORE_DIR} && \
+		cd ${DOCKER_BUILD_DIR} && \
+		ctest --timeout ${DOCKER_CTEST_TIMEOUT} --output-on-failure"
 
-# Not a target:
-obj/pidProcessor.o:
+login:
+#  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
-#  Modification time never checked.
+#  File does not exist.
 #  File has not been updated.
+#  recipe to execute (from 'Makefile', line 87):
+	@if [ "${IF_CONTAINER_RUNS}" != "true" ]; then \
+		docker run ${DOCKER_BASIC_RUN_PARAMS} \
+			${DOCKER_SHELL}; \
+	else \
+		docker exec -it ${DOCKER_DEPS_CONTAINER} \
+			${DOCKER_SHELL}; \
+	fi
 
-# Not a target:
-obj/thermocoupleReceiver.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-obj/common.o:
+.PHONY: help gen_cmake build test clean login build-docker-deps-image
+ 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=35/1024=3%, Rehash=0, Collisions=0/86=0%
+# Load=12/1024=1%, Rehash=0, Collisions=0/44=0%
 # VPATH Search Paths
 
-# No `vpath' search paths.
+# No 'vpath' search paths.
 
-# No general (`VPATH' variable) search path.
+# No general ('VPATH' variable) search path.
 
-# # of strings in strcache: 1
-# # of strcache buffers: 1
-# strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
-# strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
+# strcache buffers: 1 (0) / strings = 28 / storage = 270 B / avg = 9 B
+# current buf: size = 8162 B / used = 270 B / count = 28 / avg = 9 B
 
-# Finished Make data base on Mon Jan  9 21:13:35 2023
+# strcache performance: lookups = 60 / hit rate = 53%
+# hash-table stats:
+# Load=28/8192=0%, Rehash=0, Collisions=0/60=0%
+# Finished Make data base on Wed Dec 25 14:53:30 2024
 
  

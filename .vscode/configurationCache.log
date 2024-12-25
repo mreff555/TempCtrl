@@ -1,1 +1,1 @@
-{"buildTargets":["build","build-docker-deps-image","clean","gen_cmake","help","login","test"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}
+{"buildTargets":["build","build-docker-deps-image","clean","gen_cmake","help","login","make","test"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}

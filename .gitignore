@@ -3,5 +3,5 @@
 *.o
 tempctrl
 .backup
-.vscode/**
+.vscode
 build

@@ -1,17 +1,20 @@
-make --dry-run --always-make --keep-going --print-directory
-make: Entering directory `/Users/mreff555/src/TempCtrl'
-mkdir -p bin obj debug
-g++ -Wno-psabi -lwiringPi -lpthread -c -o obj/bitfield.o src/bitfield.cpp
-g++ -Wno-psabi -lwiringPi -lpthread -c -o obj/button.o src/button.cpp
-g++ -Wno-psabi -lwiringPi -lpthread -c -o obj/buttonManager.o src/buttonManager.cpp
-g++ -Wno-psabi -lwiringPi -lpthread -c -o obj/buttonSubscriber.o src/buttonSubscriber.cpp
-g++ -Wno-psabi -lwiringPi -lpthread -c -o obj/common.o src/common.cpp
-g++ -Wno-psabi -lwiringPi -lpthread -c -o obj/dataManager.o src/dataManager.cpp
-g++ -Wno-psabi -lwiringPi -lpthread -c -o obj/lcdScreen.o src/lcdScreen.cpp
-g++ -Wno-psabi -lwiringPi -lpthread -c -o obj/main.o src/main.cpp
-g++ -Wno-psabi -lwiringPi -lpthread -c -o obj/pidProcessor.o src/pidProcessor.cpp
-g++ -Wno-psabi -lwiringPi -lpthread -c -o obj/pwmController.o src/pwmController.cpp
-g++ -Wno-psabi -lwiringPi -lpthread -c -o obj/thermocoupleReceiver.o src/thermocoupleReceiver.cpp
-g++ -Wno-psabi -lwiringPi -lpthread -o bin/tempctrl obj/bitfield.o obj/button.o obj/buttonManager.o obj/buttonSubscriber.o obj/common.o obj/dataManager.o obj/lcdScreen.o obj/main.o obj/pidProcessor.o obj/pwmController.o obj/thermocoupleReceiver.o
-make: Leaving directory `/Users/mreff555/src/TempCtrl'
+make --dry-run --keep-going --print-directory
+make: Entering directory '/Users/mreff555/src/TempCtrl'
+docker run -it --init --rm --memory-swap=-1 --ulimit core=-1 --name="tempctrl_build" --workdir=/root/project_root --mount type=bind,source=/Users/mreff555/src/TempCtrl,target=/root/project_root  tempctrl/tempctrl_build:latest \
+	bash -c \
+	"mkdir -p /root/project_root/build && \
+	cd build && \
+	CC=gcc CXX=g++ \
+	cmake  .."
+echo
+echo "CMake finished."
+docker run -it --init --rm --memory-swap=-1 --ulimit core=-1 --name="tempctrl_build" --workdir=/root/project_root --mount type=bind,source=/Users/mreff555/src/TempCtrl,target=/root/project_root  tempctrl/tempctrl_build:latest \
+	bash -c \
+	"cd build && \
+	rm -f CMakeCache.txt && \
+	cmake .. && \
+	make -j $(nproc) "
+echo
+echo "Build finished. The binaries are in /Users/mreff555/src/TempCtrl/build"
+make: Leaving directory '/Users/mreff555/src/TempCtrl'
  

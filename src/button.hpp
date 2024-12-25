@@ -14,6 +14,7 @@
 #include <common.hpp>
 #include <cstdint>
 #include <ctime>
+#include <string>
 
 class Button
 {
@@ -27,7 +28,7 @@ public:
    *
    * @param gpio
    */
-  Button(uint8_t gpio);
+  Button(uint8_t gpio, std::string buttonDesc = "");
 
   /**
    * @brief Destroy the Button object
@@ -68,6 +69,13 @@ public:
   time_t getTimeStamp() const;
 
   /**
+   * @brief Get button description
+   *
+   * @return std::string
+   */
+  std::string getButtonDesc() const;
+
+  /**
    * @brief If gpio's match, update timestamp and state and
    * return true.  Otherwise return false
    *
@@ -78,9 +86,18 @@ public:
   bool operator<<(const Button &rhs);
 
 private:
+  // gpio number which button is acting on
   uint8_t gpioId;
+
+  // current button state
   ButtonState buttonState;
+
+  // last button update
   time_t timeStamp;
+
+  // button description
+  std::string mButtonDesc;
+  
 };
 
 #endif /* BUTTON_HPP */

@@ -282,3 +282,8 @@ void DataManager::setSetPoint(const float sp)
   setPoint = sp;
   mLcdScreen->sendSetPoint(setPoint, mTempScale);
 }
+
+  void DataManager::registerButton(const uint8_t gpio, const std::string desc)
+  {
+    
+  }

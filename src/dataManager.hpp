@@ -54,6 +54,8 @@ public:
   void setSetPoint(const float setPoint);
 
 private:
+  void registerButton(const uint8_t gpio, const std::string desc);
+
   std::shared_ptr<ButtonManager> mButtonManager;
 
   std::shared_ptr<LcdScreen> mLcdScreen;
